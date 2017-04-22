@@ -1,0 +1,27 @@
+<div id="menu">
+
+  <input class="search" />
+
+  <ul class="list">
+
+    <% for(var i=0; i<menu.length; i++) { %>
+      <% var currentCategory = ""; %>
+      <% console.log(currentCategory); %>
+
+      <%if (currentCategory != menu[i].category) { %>
+        <li>
+            <h1 class="category"><%= menu[i].category %></h1>
+        </li>
+      <% } %>
+        <li>
+            <img src="<%= menu[i].img %>">
+            <h3 class="name"> <%= menu[i].name %> </h3>
+            <p class="description"><%= menu[i].description %></p>
+            <p class="price"><%= menu[i].price %></p>
+        </li>
+        <% currentCategory = menu[i].category; %>
+    <% } %>
+
+  </ul>
+
+</div>

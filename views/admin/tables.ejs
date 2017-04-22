@@ -2,10 +2,33 @@
 <% include ../partials/navbar-restaurant.ejs %>
 
 <div class="main">
-<h1>Tables</h1>
+    <ul class="collection table-list">
+        <li class="collection-header"><p>Tischeübersicht</p></li>
+        <% tables.forEach(function(t) { %>
+        <li class="collection-item<% if (t.free) { %> <%= " free" %> <% } %>" tableNo="<%= t.tableNo %>">
+            Tisch <%= t.tableNo %>
+            <% if (t.orders && t.orders.length > 0) {
+                var priceSum = t.orders.map(o => o.price * o.amount).reduce((acc, val) => acc + val);
+            %>
+            <span class="new badge" data-badge-caption="€"><%= priceSum %></span>
+            <% if (t.status) { %>
+                <span class="new badge" data-badge-caption=""><%= t.status%></span>
+            <% } %>
+            <ul class="collection orders">
+                <% t.orders.forEach(function(o) { %>
+                <li class="collection-item">
+                    <%= o.amount %>x <%=o.name %>
+                    <% if(o.size) { %><%=o.size%><% } %>
+                    <span class="new badge" data-badge-caption="€"><%= (o.price * o.amount).toFixed(2) %></span>
+                </li>
+                <% }) %>
+            </ul>
+            <button class="btn-table-confirm">Geliefert</button>
+            <button class="btn-table-done">Erledigen</button>
+            <% } %>
+        </li>
+        <% }) %>
+    </ul>
 
-<ul class="table-list">
     <!-- for each table, render a table-list-item which contains the number as well as a list of orders for the current occupants -->
-</ul>
-
 <% include ../partials/footer.ejs %>

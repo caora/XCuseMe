@@ -14,20 +14,36 @@
 
 .collection-item {
   position: relative;
-  i {
-    position: absolute;
+
+  img {
+    margin-top: 12px;
+  }
+
+  i:hover {
+    opacity: 0.5;
+    cursor: pointer;
   }
 
   .btn_plus_amount {
-
+    position: absolute;
+    right: 15px;
+    top: 10px;
   }
 
   .btn_minus_amount {
-
+    position: absolute;
+    right: 15px;
+    top: 60px;
   }
 
   .amount {
-    right: 0;
+    position: absolute;
+    right: 17px;
+    top: 35px;
   }
 
+}
+
+li  {
+  cursor: pointer;
 }

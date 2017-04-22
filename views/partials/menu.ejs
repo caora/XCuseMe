@@ -1,30 +1,40 @@
 <div id="menu">
-
+  <!-- List -->
   <ul class="list collection">
-    <% var currentCategory = ""; %>
     <% for(var i=0; i<menu.length; i++) { %>
 
-      <% console.log(currentCategory); %>
-
-      <%if (currentCategory != menu[i].category) { %>
-        <% currentCategory = menu[i].category; %>
         <li class="collection-header">
-            <p class="category"><%= menu[i].category %></p>
+            <p class="category"><%= menu[i].name %></p>
         </li>
-      <% } %>
-        <li class="collection-item avatar">
-            <!-- <img src="<%= menu[i].img %>" class="circle"> -->
-            <img src="http://imworld.aufeminin.com/dossiers/D20130502/ernaehrungsfehler-7-132203_L.jpg" class="circle">
-            <span class="name title"> <%= menu[i].name %> </span>
-            <p class="description"><%= menu[i].description %></p>
-            <p class="price"><%= menu[i].price %> €</p>
-            <i class="fa fa-arrow-up btn_plus_amount" aria-hidden="true"></i>
-            <i class="fa fa-arrow-down btn_minus_amount" aria-hidden="true"></i>
-            <span class="amount">10</span>
 
-        </li>
+        <% for(var j=0; j<menu[i].items.length; j++) { %>
+
+          <li class="collection-item avatar" id="<%= menu[i].items[j].pk %>">
+              <!-- <img src="<%= menu[i].img %>" class="circle"> -->
+              <img src="http://imworld.aufeminin.com/dossiers/D20130502/ernaehrungsfehler-7-132203_L.jpg" class="circle">
+              <span class="name title"> <%= menu[i].items[j].name %> </span>
+              <p class="description"><%= menu[i].items[j].description %></p>
+              <p class="price"><%= menu[i].items[j].prices[0] %> €</p>
+              <i class="fa fa-arrow-up btn_plus_amount" aria-hidden="true"></i>
+              <i id class="fa fa-arrow-down btn_minus_amount" aria-hidden="true"></i>
+              <span class="amount">0</span>
+
+
+          </li>
+          <% } %>
+
+  
+
     <% } %>
 
   </ul>
+ <!-- Modal Structure -->
+ <div id="foodDetailModal" class="modal bottom-sheet">
+   <div class="modal-content">
+     <h4 class="modal-name"></h4>
+     <p class="modal-description"></p>
+   </div>
+ </div>
+
 
 </div>

@@ -1,2 +1,18 @@
+//@import 'socialIcons';
+//@import 'colorSwitcher';
+
+$handwriting: 'Indie Flower', cursive;
+$serif: 'Lato', 'Dosis', sans-serif;
+$serif-heading: 'Dosis', sans-serif;
+$monospace: 'Inconsolata', monospace;
+$serif-small: 'Open Sans', sans-serif;
+
+h1, h2, h3, h4, h5 {
+  font-family: $serif-heading;
+}
+
 body {
-  color: #666; }
+  background-color: $base06;
+  color: $base02;
+  font-family: $serif;
+}

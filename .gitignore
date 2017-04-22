@@ -1,0 +1,6 @@
+# IDE settings
+*.idea
+
+# Compiled python code
+*.pyc
+__pycache__

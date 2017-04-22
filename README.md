@@ -8,4 +8,4 @@ Setup:
 Run:
 * node app.js
 * npm run watch-css
-* go to localhost/3000
+* go to localhost:3000

@@ -4,7 +4,11 @@ var app = express();
 app.set('view engine', 'ejs');
 
 app.get('/', function (req, res) {
-    res.render("index.ejs");
+    res.render("visitor.ejs");
+});
+
+app.get('/admin', function (req, res) {
+    res.render("restaurant.ejs");
 });
 
 app.use(express.static(__dirname + '/public'));

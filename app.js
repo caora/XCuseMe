@@ -7,8 +7,12 @@ app.get('/', function (req, res) {
     res.render("visitor.ejs");
 });
 
+app.get('/tabs', function (req, res) {
+    res.render("tabs.ejs");
+});
+
 app.get('/admin', function (req, res) {
-    res.render("admin/restaurant.ejs");
+    res.render("restaurant.ejs");
 });
 
 app.get('/admin/food', function (req, res) {

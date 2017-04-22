@@ -13,7 +13,7 @@ var foodItems = [
                 tags: [
                     "deftig",
                     "lecker"
-                    ],
+                ],
                 img: "/images/schnitzel.img",
                 sizes: [
                     "klein",
@@ -146,8 +146,86 @@ var foodItems = [
                 ]
             }
         ]
-    }
-];
+    }];
+
+var tablesSample = [{
+    tableNo: 1,
+    restaurantId: 1,
+    free: false,
+    status: "Geliefert",
+    orders: [
+        {
+            pk: 7,
+            amount: 3,
+            name: "Bier",
+            description: "eiskoid",
+            tags: [
+                "erfrischend",
+                "alkoholisch"
+            ],
+            img: "/images/bier.img",
+            restricted: 16,
+            price: 2.80
+        },
+        {
+            pk: 8,
+            amount: 27,
+            name: "Vodka-Lemon",
+            description: "naja",
+            tags: [
+                "longdrink",
+                "alkoholisch"
+            ],
+            img: "/images/vodka-lemon.img",
+            restricted: 18,
+            price: 6.50
+        }
+    ]
+}, {
+    tableNo: 2,
+    restaurantId: 1,
+    free: true
+}, {
+    tableNo: 3,
+    restaurantId: 1,
+    free: true
+}, {
+    tableNo: 4,
+    restaurantId: 1,
+    free: true
+}, {
+    tableNo: 5,
+    restaurantId: 1,
+    free: false,
+    status: "Offen",
+    orders: [
+        {
+            pk: 1,
+            amount: 0.5,
+            name: "Schnitzel mit Pommes",
+            description: "Mega guad",
+            tags: [
+                "deftig",
+                "lecker"
+            ],
+            img: "/images/schnitzel.img",
+            size: "klein",
+            price: 4.00
+        },
+        {
+            pk: 2,
+            amount: 1337,
+            name: "Lasagne",
+            description: "Mega kacke",
+            tags: [
+                "deftig",
+                "lecker"
+            ],
+            img: "/images/lasagne.img",
+            price: 6.50
+        }
+    ]
+}];
 
 app.set('view engine', 'ejs');
 
@@ -168,7 +246,7 @@ app.get('/admin/food', function (req, res) {
 });
 
 app.get('/admin/tables', function (req, res) {
-    res.render("admin/tables.ejs");
+    res.render("admin/tables.ejs", {tables: tablesSample});
 });
 
 app.use(express.static(__dirname + '/public'));

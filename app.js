@@ -1,10 +1,37 @@
 var express = require('express');
 var app = express();
 
+var dummy = [
+  {
+    name: "Schnitzel mit Pommes",
+    price: 6.50,
+    description: "Mega guad",
+    category: "Hauptspeiße"
+  },
+  {
+    name: "Lasagne",
+    price: 4.50,
+    description: "Mega kacke",
+    category: "Hauptspeiße"
+  },
+  {
+    name: "Eis",
+    price: 1.50,
+    description: "eiskoid",
+    category: "Nachtisch"
+  },
+  {
+    name: "Kuchen",
+    price: 63.50,
+    description: "naja",
+    category: "Nachtisch"
+  }
+];
+
 app.set('view engine', 'ejs');
 
 app.get('/', function (req, res) {
-    res.render("visitor.ejs");
+    res.render("visitor.ejs", {menu: dummy});
 });
 
 app.get('/tabs', function (req, res) {

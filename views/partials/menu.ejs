@@ -2,13 +2,16 @@
 
   <input class="search" />
 
-  <ul class="list">
 
+
+  <ul class="list">
+    <% var currentCategory = ""; %>
     <% for(var i=0; i<menu.length; i++) { %>
-      <% var currentCategory = ""; %>
+
       <% console.log(currentCategory); %>
 
       <%if (currentCategory != menu[i].category) { %>
+        <% currentCategory = menu[i].category; %>
         <li>
             <h1 class="category"><%= menu[i].category %></h1>
         </li>
@@ -19,7 +22,6 @@
             <p class="description"><%= menu[i].description %></p>
             <p class="price"><%= menu[i].price %></p>
         </li>
-        <% currentCategory = menu[i].category; %>
     <% } %>
 
   </ul>

@@ -1,45 +1,20 @@
 <% include ../partials/header.ejs %>
 <% include ../partials/navbar.ejs %>
 
-<div class="main">
+<div class="container">
 <h1>Menu</h1>
-
-<div class="tabbed-container">
-    <div class="tab-buttons">
-        <!-- for the first category, create a button with the classes tab-button and active -->
-        <button class="tab-button active">Vorspeisen</button>
-        <!-- for all other categories, create a button with the class tab-button -->
-        <button class="tab-button">Hauptgerichte</button>
-        <button class="tab-button">Desserts</button>
-        <button class="tab-button">Softdrinks</button>
-        <button class="tab-button">Alkoholisches</button>
+    <div class="row">
+        <div class="col s12">
+            <ul class="tabs">
+                <li class="tab col s3 m2 l1"><a class="active" href="#inbox">Inbox</a></li>
+                <li class="tab col s3 m2 l1"><a href="#unread">Unread</a></li>
+                <li class="tab col s3 m2 l1"><a href="#sent">Sent</a></li>
+            </ul>
+        </div>
+        <div id="inbox" class="col s12">Inbox</div>
+        <div id="unread" class="col s12">Unread</div>
+        <div id="sent" class="col s12">Sent</div>
     </div>
-    <div class="tabs">
-        <!-- for the first category, create a tab-content with the classes tab-button and active -->
-        <div class="tab-content active">
-            <li>Tomatensuppe</li>
-            <li>Bruscetta</li>
-            <li>Käseplatte</li>
-        </div>
-        <!-- for the first category, create a tab-content with the classes tab-button and active -->
-        <div class="tab-content">
-            <li>Schnitzel mit Pommes</li>
-            <li>Pizza Hawaii</li>
-            <li>Spaghetti Carbonara</li>
-        </div>
-        <div class="tab-content">
-            <li>Limo</li>
-            <li>Wasser</li>
-            <li>Apfelschorle</li>
-        </div>
-        <div class="tab-content">
-            <li>Bier</li>
-            <li>Radler</li>
-            <li>Rotwein</li>
-        </div>
-    </div>
-</div>
-
 </div>
 
 <% include ../partials/footer.ejs %>

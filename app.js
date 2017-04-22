@@ -1,37 +1,154 @@
 var express = require('express');
 var app = express();
 
-var dummy = [
-  {
-    name: "Schnitzel mit Pommes",
-    price: 6.50,
-    description: "Mega guad",
-    category: "Hauptspeiße"
-  },
-  {
-    name: "Lasagne",
-    price: 4.50,
-    description: "Mega kacke",
-    category: "Hauptspeiße"
-  },
-  {
-    name: "Eis",
-    price: 1.50,
-    description: "eiskoid",
-    category: "Nachtisch"
-  },
-  {
-    name: "Kuchen",
-    price: 63.50,
-    description: "naja",
-    category: "Nachtisch"
-  }
+var foodItems = [
+    {
+        name: "Hauptspeisen",
+        items: [
+            {
+                pk: 1,
+                name: "Schnitzel mit Pommes",
+                description: "Mega guad",
+                tags: [
+                    "deftig",
+                    "lecker"
+                    ],
+                img: "/images/schnitzel.img",
+                sizes: [
+                    "klein",
+                    "normal"
+                ],
+                prices: [
+                    4.00,
+                    6.50
+                ]
+            },
+            {
+                pk: 2,
+                name: "Lasagne",
+                description: "Mega kacke",
+                tags: [
+                    "deftig",
+                    "lecker"
+                ],
+                img: "/images/lasagne.img",
+                prices: [
+                    6.50
+                ]
+            }
+        ]
+    },
+    {
+        name: "Nachtische",
+        items: [
+            {
+                pk: 3,
+                name: "Eisbecher",
+                description: "eiskoid",
+                tags: [
+                    "süß",
+                    "kalt"
+                ],
+                img: "/images/eis.img",
+                prices: [
+                    3.50
+                ]
+            },
+            {
+                pk: 4,
+                name: "Kuchen",
+                description: "naja",
+                tags: [
+                    "süß",
+                    "lecker"
+                ],
+                img: "/images/kuchen.img",
+                prices: [
+                    2.50
+                ]
+            }
+        ]
+    },
+    {
+        name: "Softdrinks",
+        items: [
+            {
+                pk: 5,
+                name: "Cola",
+                description: "eiskoid",
+                tags: [
+                    "erfrischend",
+                    "kalt"
+                ],
+                img: "/images/cola.img",
+                sizes: [
+                    "0.3l",
+                    "0.5l"
+                ],
+                prices: [
+                    2.00,
+                    2.80
+                ]
+            },
+            {
+                pk: 6,
+                name: "Wasser",
+                description: "sauber, spritzig",
+                tags: [
+                    "erfrischend",
+                    "kalt"
+                ],
+                img: "/images/wasser.img",
+                sizes: [
+                    "0.3l",
+                    "0.5l"
+                ],
+                prices: [
+                    1.80,
+                    2.20
+                ]
+            }
+        ]
+    },
+    {
+        name: "Alkoholische Getränke",
+        items: [
+            {
+                pk: 7,
+                name: "Bier",
+                description: "eiskoid",
+                tags: [
+                    "erfrischend",
+                    "alkoholisch"
+                ],
+                img: "/images/bier.img",
+                restricted: 16,
+                prices: [
+                    2.80
+                ]
+            },
+            {
+                pk: 8,
+                name: "Vodka-Lemon",
+                description: "naja",
+                tags: [
+                    "longdrink",
+                    "alkoholisch"
+                ],
+                img: "/images/vodka-lemon.img",
+                restricted: 18,
+                prices: [
+                    6.50
+                ]
+            }
+        ]
+    }
 ];
 
 app.set('view engine', 'ejs');
 
 app.get('/', function (req, res) {
-    res.render("visitor.ejs", {menu: dummy});
+    res.render("visitor.ejs", {menu: foodItems});
 });
 
 app.get('/tabs', function (req, res) {
@@ -43,7 +160,7 @@ app.get('/admin', function (req, res) {
 });
 
 app.get('/admin/food', function (req, res) {
-    res.render("admin/food.ejs");
+    res.render("admin/food.ejs", {menu: foodItems});
 });
 
 app.get('/admin/tables', function (req, res) {

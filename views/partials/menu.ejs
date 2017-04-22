@@ -1,10 +1,6 @@
 <div id="menu">
 
-  <input class="search" />
-
-
-
-  <ul class="list">
+  <ul class="list collection">
     <% var currentCategory = ""; %>
     <% for(var i=0; i<menu.length; i++) { %>
 
@@ -12,15 +8,20 @@
 
       <%if (currentCategory != menu[i].category) { %>
         <% currentCategory = menu[i].category; %>
-        <li>
-            <h1 class="category"><%= menu[i].category %></h1>
+        <li class="collection-header">
+            <p class="category"><%= menu[i].category %></p>
         </li>
       <% } %>
-        <li>
-            <img src="<%= menu[i].img %>">
-            <h3 class="name"> <%= menu[i].name %> </h3>
+        <li class="collection-item avatar">
+            <!-- <img src="<%= menu[i].img %>" class="circle"> -->
+            <img src="http://imworld.aufeminin.com/dossiers/D20130502/ernaehrungsfehler-7-132203_L.jpg" class="circle">
+            <span class="name title"> <%= menu[i].name %> </span>
             <p class="description"><%= menu[i].description %></p>
-            <p class="price"><%= menu[i].price %></p>
+            <p class="price"><%= menu[i].price %> €</p>
+            <i class="fa fa-arrow-up btn_plus_amount" aria-hidden="true"></i>
+            <i class="fa fa-arrow-down btn_minus_amount" aria-hidden="true"></i>
+            <span class="amount">10</span>
+
         </li>
     <% } %>
 

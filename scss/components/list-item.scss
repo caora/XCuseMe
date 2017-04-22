@@ -1,0 +1,33 @@
+.collection-header {
+
+  text-align: center;
+  color: white;
+
+  p {
+    font-size: 18px;
+    margin: 0;
+    padding: 20px 0;
+    background-color: #f1c40f;
+  }
+
+}
+
+.collection-item {
+  position: relative;
+  i {
+    position: absolute;
+  }
+
+  .btn_plus_amount {
+
+  }
+
+  .btn_minus_amount {
+
+  }
+
+  .amount {
+    right: 0;
+  }
+
+}

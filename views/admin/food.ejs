@@ -1,42 +1,44 @@
 <% include ../partials/header.ejs %>
 <% include ../partials/navbar-restaurant.ejs %>
 
-<div class="container">
-<h1>Menu</h1>
-    <div class="row">
-        <% var currentCategory = null; %>
-        <div class="col s12" style="background: white;">
-            <ul class="tabs">
-                <%if (menu.length > 0) { %>
-                    <% currentCategory = menu[0]; %>
-                    <li class="tab col s3 m2">
-                        <a class="active" href="#<%= currentCategory.pk %>">
-                            <%= currentCategory.name %>
-                        </a>
-                    </li>
+<ul class="collection" id="admin-food">
+    <li class="collection-header"><p>Gerichte</p></li>
+    <li class="container">
+        <div class="row tab-container">
+            <% var currentCategory = null; %>
+            <div class="col s12 tab-container--top">
+                <ul class="tabs">
+                    <%if (menu.length > 0) { %>
+                        <% currentCategory = menu[0]; %>
+                        <li class="tab">
+                            <a class="active" href="#<%= currentCategory.pk %>">
+                                <%= currentCategory.name %>
+                            </a>
+                        </li>
 
-                    <%if (menu.length > 1) { %>
-                        <% for(var i=1; i<menu.length; i++) { %>
-                            <% currentCategory = menu[i]; %>
-                            <li class="tab col s3">
-                                <a href="#<%= currentCategory.pk %>">
-                                    <%= currentCategory.name %>
-                                </a>
-                            </li>
+                        <%if (menu.length > 1) { %>
+                            <% for(var i=1; i<menu.length; i++) { %>
+                                <% currentCategory = menu[i]; %>
+                                <li class="tab">
+                                    <a href="#<%= currentCategory.pk %>">
+                                        <%= currentCategory.name %>
+                                    </a>
+                                </li>
+                            <% } %>
                         <% } %>
                     <% } %>
+                </ul>
+            </div>
+            <%if (menu.length > 0) { %>
+                <% for(var i=0; i<menu.length; i++) { %>
+                    <% currentCategory = menu[i]; %>
+                    <div id="<%= currentCategory.pk %>" class="col s12 tab-container--bottom">
+                        <% include ../partials/admin-food-list.ejs %>
+                    </div>
                 <% } %>
-            </ul>
-        </div>
-        <%if (menu.length > 0) { %>
-            <% for(var i=0; i<menu.length; i++) { %>
-                <% currentCategory = menu[i]; %>
-                <div id="<%= currentCategory.pk %>" style="background: white;" class="col s12">
-                    <% include ../partials/admin-food-list.ejs %>
-                </div>
             <% } %>
-        <% } %>
-    </div>
-</div>
+        </div>
+    </li>
+</ul>
 
 <% include ../partials/footer.ejs %>

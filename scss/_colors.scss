@@ -83,5 +83,6 @@ $base16-dark-blue:    desaturate(darken($base0d, $__darken-amount), $__desaturat
 $base16-dark-violet:  desaturate(darken($base0e, $__darken-amount), $__desaturate-amount);
 $base16-dark-magenta: desaturate(darken($base0f, $__darken-amount), $__desaturate-amount);
 
-$background: $base06;
+$background: $base07;
 $text-color: $base02;
+$border-color: #eee;

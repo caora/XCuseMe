@@ -10,12 +10,12 @@ var foodItems = [
             {
                 pk: 1,
                 name: "Schnitzel mit Pommes",
-                description: "Mega guad",
+                description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.",
                 tags: [
                     "deftig",
                     "lecker"
                 ],
-                img: "/images/schnitzel.img",
+                img: "/images/schnitzel.jpg",
                 sizes: [
                     "klein",
                     "normal"
@@ -28,12 +28,12 @@ var foodItems = [
             {
                 pk: 2,
                 name: "Lasagne",
-                description: "Mega kacke",
+                description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.",
                 tags: [
                     "deftig",
                     "lecker"
                 ],
-                img: "/images/lasagne.img",
+                img: "/images/lasagne.jpg",
                 prices: [
                     6.50
                 ]
@@ -52,7 +52,7 @@ var foodItems = [
                     "süß",
                     "kalt"
                 ],
-                img: "/images/eis.img",
+                img: "/images/eisbecher.jpg",
                 prices: [
                     3.50
                 ]
@@ -65,7 +65,7 @@ var foodItems = [
                     "süß",
                     "lecker"
                 ],
-                img: "/images/kuchen.img",
+                img: "/images/kuchen.jpg",
                 prices: [
                     2.50
                 ]
@@ -84,7 +84,7 @@ var foodItems = [
                     "erfrischend",
                     "kalt"
                 ],
-                img: "/images/cola.img",
+                img: "/images/cola.jpg",
                 sizes: [
                     "0.3l",
                     "0.5l"
@@ -102,7 +102,7 @@ var foodItems = [
                     "erfrischend",
                     "kalt"
                 ],
-                img: "/images/wasser.img",
+                img: "/images/wasser.jpg",
                 sizes: [
                     "0.3l",
                     "0.5l"
@@ -126,7 +126,7 @@ var foodItems = [
                     "erfrischend",
                     "alkoholisch"
                 ],
-                img: "/images/bier.img",
+                img: "/images/bier.jpg",
                 restricted: 16,
                 prices: [
                     2.80
@@ -134,13 +134,13 @@ var foodItems = [
             },
             {
                 pk: 8,
-                name: "Vodka-Lemon",
+                name: "Wodka-Lemon",
                 description: "naja",
                 tags: [
                     "longdrink",
                     "alkoholisch"
                 ],
-                img: "/images/vodka-lemon.img",
+                img: "/images/wodka-lemon.jpg",
                 restricted: 18,
                 prices: [
                     6.50
@@ -164,7 +164,7 @@ var tablesSample = [{
                 "erfrischend",
                 "alkoholisch"
             ],
-            img: "/images/bier.img",
+            img: "/images/bier.jpg",
             restricted: 16,
             price: 2.80
         },
@@ -177,7 +177,7 @@ var tablesSample = [{
                 "longdrink",
                 "alkoholisch"
             ],
-            img: "/images/vodka-lemon.img",
+            img: "/images/vodka-lemon.jpg",
             restricted: 18,
             price: 6.50
         }
@@ -209,7 +209,7 @@ var tablesSample = [{
                 "deftig",
                 "lecker"
             ],
-            img: "/images/schnitzel.img",
+            img: "/images/schnitzel.jpg",
             size: "klein",
             price: 4.00
         },
@@ -222,7 +222,7 @@ var tablesSample = [{
                 "deftig",
                 "lecker"
             ],
-            img: "/images/lasagne.img",
+            img: "/images/lasagne.jpg",
             price: 6.50
         }
     ]

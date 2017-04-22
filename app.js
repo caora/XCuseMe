@@ -3,6 +3,7 @@ var app = express();
 
 var foodItems = [
     {
+        pk: 1,
         name: "Hauptspeisen",
         items: [
             {
@@ -39,6 +40,7 @@ var foodItems = [
         ]
     },
     {
+        pk: 2,
         name: "Nachtische",
         items: [
             {
@@ -70,6 +72,7 @@ var foodItems = [
         ]
     },
     {
+        pk: 3,
         name: "Softdrinks",
         items: [
             {
@@ -111,6 +114,7 @@ var foodItems = [
         ]
     },
     {
+        pk: 4,
         name: "Alkoholische Getränke",
         items: [
             {

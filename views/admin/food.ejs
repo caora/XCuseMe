@@ -4,17 +4,31 @@
 <div class="container">
 <h1>Menu</h1>
     <div class="row">
+        <% var currentCategory = null; %>
         <div class="col s12">
             <ul class="tabs">
-                <li class="tab col s3 m2"><a class="active" href="#inbox">Inbox</a></li>
-                <li class="tab col s3 m2"><a href="#unread">Unread</a></li>
-                <li class="tab col s3 m2"><a href="#sent">Sent</a></li>
+                <%if (menu.length > 0) { %>
+                    <% currentCategory = menu[0]; %>
+                    <li class="tab col s3 m2"><a class="active" href="#<%= currentCategory.pk %>"><%= currentCategory.name %></a></li>
+
+                    <%if (menu.length > 1) { %>
+                        <% for(var i=1; i<menu.length; i++) { %>
+                            <% currentCategory = menu[i]; %>
+                            <li class="tab col s3"><a href="#<%= currentCategory.pk %>"><%= currentCategory.name %></a></li>
+                        <% } %>
+                    <% } %>
+                <% } %>
             </ul>
         </div>
-        <div id="inbox" class="col s12">Inbox</div>
-        <div id="unread" class="col s12">Unread</div>
-        <div id="sent" class="col s12">Sent</div>
+        <%if (menu.length > 0) { %>
+            <% currentCategory = menu[0]; %>
+            <% for(var i=0; i<menu.length; i++) { %>
+                <% currentCategory = menu[i]; %>
+                <div id="<%= currentCategory.pk %>" class="col s12">Test</div>
+            <% } %>
+        <% } %>
     </div>
 </div>
+
 
 <% include ../partials/footer.ejs %>

@@ -1,1 +1,13 @@
+<<<<<<< HEAD
 # Created by .ignore support plugin (hsz.mobi)
+=======
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+node_modules/
+.idea/
+>>>>>>> 171f41b2f8ad30d812622734e0c7951e97342eae

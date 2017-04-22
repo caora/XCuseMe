@@ -5,7 +5,7 @@
 <h1>Menu</h1>
     <div class="row">
         <% var currentCategory = null; %>
-        <div class="col s12">
+        <div class="col s12" style="background: white;">
             <ul class="tabs">
                 <%if (menu.length > 0) { %>
                     <% currentCategory = menu[0]; %>
@@ -24,11 +24,12 @@
             <% currentCategory = menu[0]; %>
             <% for(var i=0; i<menu.length; i++) { %>
                 <% currentCategory = menu[i]; %>
-                <div id="<%= currentCategory.pk %>" class="col s12">Test</div>
+                <div id="<%= currentCategory.pk %>" style="background: white;" class="col s12">
+                    <% include ../partials/admin-food-list.ejs %>
+                </div>
             <% } %>
         <% } %>
     </div>
 </div>
-
 
 <% include ../partials/footer.ejs %>

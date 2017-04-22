@@ -160,7 +160,7 @@ app.get('/tabs', function (req, res) {
 });
 
 app.get('/admin', function (req, res) {
-    res.render("restaurant.ejs");
+    res.render("admin/restaurant.ejs");
 });
 
 app.get('/admin/food', function (req, res) {

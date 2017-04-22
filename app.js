@@ -8,7 +8,15 @@ app.get('/', function (req, res) {
 });
 
 app.get('/admin', function (req, res) {
-    res.render("restaurant.ejs");
+    res.render("admin/restaurant.ejs");
+});
+
+app.get('/admin/food', function (req, res) {
+    res.render("admin/food.ejs");
+});
+
+app.get('/admin/tables', function (req, res) {
+    res.render("admin/tables.ejs");
 });
 
 app.use(express.static(__dirname + '/public'));

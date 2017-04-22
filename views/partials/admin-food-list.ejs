@@ -1,6 +1,44 @@
 <% for(var i=0; i<currentCategory.items.length; i++) { %>
     <% foodItem = currentCategory.items[i]; %>
     <div class="food-item">
-        <%= foodItem.name %>
+        <h2><%= foodItem.name %></h2>
+        <div class="food-item--image-container">
+            <img class="food-item--image" href="<%= foodItem.img %>" />
+        </div>
+        <div class="food-item--description">
+            <%= foodItem.description %>
+        </div>
+        <ul class="food-item--sizes">
+            <% if(foodItem.sizes) { %>
+                <% for(var j=0; j<foodItem.sizes.length; j++) { %>
+                    <li>
+                        <%= foodItem.sizes[j] %>
+                    </li>
+                <% } %>
+            <% } else { %>
+                <li>
+                    Price
+                </li>
+            <% } %>
+        </ul>
+        <ul class="food-item--prices">
+            <% for(var j=0; j<foodItem.prices.length; j++) { %>
+                <%= foodItem.prices[j] %>
+            <% } %>
+        </ul>
+        <ul class="food-item--prices">
+            <% for(var j=0; j<foodItem.prices.length; j++) { %>
+                <li>
+                    <%= foodItem.prices[j] %>
+                </li>
+            <% } %>
+        </ul>
+        <div class="food-item--restriction">
+            <% if(foodItem.restriction) { %>
+                Only sell to over <%= foodItem.restriction %>s
+            <% } else { %>
+                No age restriction
+            <% } %>
+        </div>
     </div>
 <% } %>

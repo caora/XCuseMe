@@ -9,19 +9,26 @@
             <ul class="tabs">
                 <%if (menu.length > 0) { %>
                     <% currentCategory = menu[0]; %>
-                    <li class="tab col s3 m2"><a class="active" href="#<%= currentCategory.pk %>"><%= currentCategory.name %></a></li>
+                    <li class="tab col s3 m2">
+                        <a class="active" href="#<%= currentCategory.pk %>">
+                            <%= currentCategory.name %>
+                        </a>
+                    </li>
 
                     <%if (menu.length > 1) { %>
                         <% for(var i=1; i<menu.length; i++) { %>
                             <% currentCategory = menu[i]; %>
-                            <li class="tab col s3"><a href="#<%= currentCategory.pk %>"><%= currentCategory.name %></a></li>
+                            <li class="tab col s3">
+                                <a href="#<%= currentCategory.pk %>">
+                                    <%= currentCategory.name %>
+                                </a>
+                            </li>
                         <% } %>
                     <% } %>
                 <% } %>
             </ul>
         </div>
         <%if (menu.length > 0) { %>
-            <% currentCategory = menu[0]; %>
             <% for(var i=0; i<menu.length; i++) { %>
                 <% currentCategory = menu[i]; %>
                 <div id="<%= currentCategory.pk %>" style="background: white;" class="col s12">

@@ -1,4 +1,5 @@
 var express = require('express');
+var bodyParser = require('body-parser');
 var app = express();
 
 var foodItems = [
@@ -253,6 +254,9 @@ app.get('/admin/tables', function (req, res) {
     res.render("admin/tables.ejs", {tables: tablesSample});
 });
 
+
+app.use(bodyParser.urlencoded());
+app.use(bodyParser.json());
 app.use(express.static(__dirname + '/public'));
 
 app.listen(3000, function () {

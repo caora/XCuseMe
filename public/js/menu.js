@@ -1,14 +1,15 @@
 var Menu = (function () {
   var that = {},
+      TABLE_ID,
       itemsForOrder = {};
 
   function init () {
-    initUI();
+    initButtons();
+    initModal();
     initList();
   }
 
-  function initUI () {
-    initModal();
+  function initButtons () {
     $('.button-collapse').sideNav();
     $(".list .btn_plus_amount").click(function(event) {
 			var foodItemId = $(event.target).parent().attr("id");
@@ -18,13 +19,54 @@ var Menu = (function () {
 			var foodItemId = $(event.target).parent().attr("id");
       changeAmount(foodItemId, -1);
 		});
+    $("#btn_order").click(function() {
+      prepareOrderModal();
+      $('#orderDetailModal').modal('open');
+    });
+    $("#btn-complete-order").click(function() {
+      if (isEmpty(itemsForOrder)) {
+        return;
+      } else {
+        // $.ajax({
+        //
+        // });
+        console.log(JSON.stringify(itemsForOrder));
+      }
+    });
   }
+
+  function isEmpty(map) {
+   for(var key in map) {
+      return !map.hasOwnProperty(key);
+   }
+   return true;
+  }
+
+  function prepareOrderModal() {
+    var orderList = document.getElementById("orderList"),
+        totalView = document.getElementById("totalPrice"),
+        total = 0;
+
+    for (foodId in itemsForOrder) {
+      var id = foodId.slice(3);
+      var foodName = $("#"+ id + " .name").html();
+      var price = parseFloat($("#"+ id + " .price").html()) * itemsForOrder[foodId];
+      total += price;
+      console.log(foodName);
+      var li = document.createElement("li");
+      li.className = "collection-item";
+      li.innerHTML = foodName + "<span class='badge'>" + itemsForOrder[foodId] + "</span>";
+      orderList.appendChild(li);
+    }
+    totalView.innerHTML = total;
+  }
+
 
   function initModal() {
     var modalName = $(".modal-name"),
         modalDesc = $(".modal-description");
 
-    $('.collection-item').click(function(event) {
+    $('.list .collection-item').click(function(event) {
       var foodItemId;
       if (event.target.id == "") {
         if (event.target.tagName == "I") {
@@ -40,6 +82,17 @@ var Menu = (function () {
       $('#foodDetailModal').modal('open');
     });
     $('.modal').modal();
+    $('.orderModal').modal({
+      dismissible: true, // Modal can be dismissed by clicking outside of the modal
+      opacity: .5, // Opacity of modal background
+      inDuration: 300, // Transition in duration
+      outDuration: 200, // Transition out duration
+      startingTop: '4%', // Starting top style attribute
+      endingTop: '10%',
+      complete: function() {
+        $(".modal-orderList").empty();
+      } // Callback for Modal close
+    });
   }
 
   function changeAmount(foodItemId, newAmount) {

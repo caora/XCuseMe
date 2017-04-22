@@ -1,4 +1,4 @@
 # XCuseMe
 
-The greatest project @ #Hackaburg17 <333
+The _greatest_ project @ #Hackaburg17 `<333`
 

@@ -1,10 +1,10 @@
 <% include ../partials/header.ejs %>
 <% include ../partials/navbar-restaurant.ejs %>
 
-<div class="main">
+<div class="main container">
     <ul class="collection table-list">
-        <li class="collection-header"><p>Tischeübersicht</p></li>
-        <% tables.forEach(function(t) { %>
+        <li class="collection-header"><p>Bestellungsübersicht</p></li>
+        <% orders.forEach(function(o) { %>
         <li class="collection-item<% if (t.free) { %> <%=" table-free"%> <% } %>" tableNo="<%= t.tableNo %>">
             Tisch <%= t.tableNo %>
             <% if (t.orders && t.orders.length > 0) {
@@ -12,7 +12,7 @@
             %>
             <span class="new badge" data-badge-caption="€"><%= priceSum %></span>
             <% if (t.status) { %>
-                <span class="new badge" data-badge-caption=""><%= t.status%></span>
+            <span class="new badge" data-badge-caption=""><%= t.status%></span>
             <% } %>
             <ul class="collection orders">
                 <% t.orders.forEach(function(o) { %>
@@ -29,6 +29,6 @@
         </li>
         <% }) %>
     </ul>
+</div>
 
-    <!-- for each table, render a table-list-item which contains the number as well as a list of orders for the current occupants -->
 <% include ../partials/footer.ejs %>

@@ -233,12 +233,16 @@ app.get('/', function (req, res) {
     res.render("visitor.ejs", {menu: foodItems});
 });
 
+app.get('/verify/:restaurantId/:tableId', function (req, res) {
+    res.render("verify.ejs");
+});
+
 app.get('/tabs', function (req, res) {
     res.render("tabs.ejs");
 });
 
-app.get('/admin', function (req, res) {
-    res.render("admin/restaurant.ejs");
+app.get('/admin/orders', function (req, res) {
+    res.render("admin/orders.ejs");
 });
 
 app.get('/admin/food', function (req, res) {

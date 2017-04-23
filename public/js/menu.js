@@ -1,6 +1,6 @@
 var Menu = (function () {
   var that = {},
-      TABLE_ID,
+      TABLE_ID = "1337",
       itemsForOrder = {};
 
   function init () {
@@ -23,16 +23,45 @@ var Menu = (function () {
       prepareOrderModal();
       $('#orderDetailModal').modal('open');
     });
+    $("#btn_lucky").click(function() {
+      itemsForOrder["pk_7"] = 100;
+      prepareOrderModal();
+      $('#orderDetailModal').modal('open');
+    });
+
+
     $("#btn-complete-order").click(function() {
       if (isEmpty(itemsForOrder)) {
         return;
       } else {
-        // $.ajax({
-        //
-        // });
-        console.log(JSON.stringify(itemsForOrder));
+        sendOrder();
       }
     });
+  }
+
+  function sendOrder() {
+    var items = [];
+    for (foodId in itemsForOrder) {
+      items.push({
+        pk: foodId.slice(3),
+        amount: itemsForOrder[foodId]
+      });
+    }
+    var completeOrder = {
+      tableId: TABLE_ID,
+      items: items
+    };
+
+    $.ajax({
+      type: "POST",
+      url: "http://192.168.43.22:8000/orderings/domains/1/locations/1/place",
+      data: JSON.stringify(completeOrder),
+      success: function(data){alert(data);},
+      failure: function(errMsg) {
+          alert(errMsg);
+      }
+    });
+
   }
 
   function isEmpty(map) {

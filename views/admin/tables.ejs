@@ -2,9 +2,11 @@
 <% include ../partials/navbar-restaurant.ejs %>
 
 <div id="tables-div" class="main">
-    <ul id="table-list" class="collection table-list">
-        <li class="collection-header"><p>Tischeübersicht</p></li>
-    </ul>
+    <div class="container">
+        <ul id="table-list" class="collection table-list #admin-tables">
+            <li class="collection-header"><p>Tischeübersicht</p></li>
+        </ul>
+    </div>
 
     <script>
         var ordersUrl = "http://localhost:3000/admin/tables_request";
@@ -18,7 +20,7 @@
                             var tables = data[sk];
                             for (var tk in tables) {
                                 var t = tables[tk];
-                                innerhtml += '<li class="collection-item" tableNo="' + tk + '">';
+                                innerhtml += '<li class="card" tableNo="' + tk + '">';
                                 innerhtml += 'Tisch ' + tk;
                                 if (t && t.length > 0) {
                                     var priceSum = t.map(i => i.count * i["item"].price)

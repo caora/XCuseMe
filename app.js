@@ -110,7 +110,6 @@ function isIn(cat, arr) {
     return false;
 }
 
-<<<<<<< Updated upstream
 app.get('/r/:r/:l/:token', function (req, res) {
     var renderParam = {r: req.params.r, l: req.params.l, token:req.params.token, menu: {}};
 
@@ -139,14 +138,6 @@ app.get('/r/:r/:l/:token', function (req, res) {
 app.get('/rv/:r/:l', function (req, res) {
     res.render("verify.ejs", {r: req.params.r, l: req.params.l});
 });
-=======
-app.get('/', function (req, res) {
-  request('http://172.16.118.27:8000/orderings/domains/1/locations/1', function (error, response, body) {
-
-    var foodItems = parseData(JSON.parse(response.body));
-    res.render("visitor.ejs", {menu: foodItems});
-  });
->>>>>>> Stashed changes
 
 app.get('/admin/*', function(req, res, next){
     if (!!req.session.bounceTo){ // already have a bounce destination

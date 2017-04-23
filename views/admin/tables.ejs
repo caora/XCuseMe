@@ -26,7 +26,7 @@
                                     var priceSum = t.map(i => i.count * i["item"].price)
                                         .reduce((acc, val) => acc + val)
                                         .toFixed(2);
-                                    innerhtml += '<span class="new badge" data-badge-caption="€">' + priceSum + '</span>';
+                                    innerhtml += '<span class="new badge white black-text" data-badge-caption="€">' + priceSum + '</span>';
                                 }
 
                                 innerhtml += '<ul class="collection orders">';
@@ -35,12 +35,14 @@
                                     innerhtml += '<li class="collection-item row">';
                                     innerhtml += '<span class="col m8">' + i.count + 'x ' + i["item"].name + '</span>';
                                     innerhtml += '<div class="col m4">';
+                                    innerhtml += '<div class="button-box">';
                                     innerhtml += '<form action="confirm/1/' + i['order'].pk + '" method="post">';
-                                    innerhtml += '<input type="submit" class="waves-effect waves-light btn btn-table-confirm" value="Fertig" />';
+                                    innerhtml += '<input type="submit" class="waves-effect waves-light btn yellow darken-3 btn-table-confirm" value="Fertig" />';
                                     innerhtml += '</form>';
                                     innerhtml += '<form action="done/1/' + i['order'].pk + '" method="post">';
-                                    innerhtml += '<input type="submit" class="waves-effect waves-light btn btn-table-confirm" value="Bezahlt" />';
+                                    innerhtml += '<input type="submit" class="waves-effect waves-light btn green btn-table-done" value="Bezahlt" />';
                                     innerhtml += '</form>';
+                                    innerhtml += '</div>';
                                     innerhtml += '<span class="new badge" data-badge-caption="€">' + (i.count * i["item"].price).toFixed(2) + '</span>';
                                     if (i.status) {
                                         innerhtml += '<span class="new badge" data-badge-caption="">' + i.status + '</span>';
@@ -55,7 +57,8 @@
                 }
             });
         }
-        setInterval(updateTable, 1000);
+        //setInterval(updateTable, 1000);
+        updateTable();
     </script>
 
     <!-- for each table, render a table-list-item which contains the number as well as a list of orders for the current occupants -->

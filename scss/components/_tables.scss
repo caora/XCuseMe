@@ -6,3 +6,57 @@
     float: right
   }
 }
+
+#table-list {
+  .card {
+    margin: 30px 0;
+    padding: 15px;
+    font-size: 18px;
+
+    > .badge {
+      font-size: 16px !important;
+      height: 30px;
+      line-height: 30px;
+    }
+  }
+
+  .button-box {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 15px;
+    font-weight: normal;
+
+    form:first-child {
+      margin-right: 10px;
+    }
+  }
+}
+
+.collection.orders {
+  border-left: 0;
+  border-right: 0;
+  border-bottom: none;
+
+  .collection-item {
+    font-size: 16px;
+    font-weight: bold;
+    padding: 20px 0;
+
+    &:last-child {
+      padding-bottom: 0;
+    }
+  }
+}
+
+#tables-div {
+  .collection-header {
+    p {
+      font-size: 22px !important;
+      font-weight: bold;
+      padding-bottom: 0;
+      padding-top: 30px;
+      background: white !important;
+      color: #333 !important;
+    }
+  }
+}

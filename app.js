@@ -172,12 +172,16 @@ app.post('/admin/login', function(req, res){
                 req.session.success = 'Authenticated as ' + user.name
                     + ' click to <a href="/logout">logout</a>. '
                     + ' You may now access <a href="/restricted">/restricted</a>.';
-                console.log(req.body.bounceTo);
-                res.redirect(req.body.bounceTo);
+                console.log("bounceTo: " + req.body.bounceTo);
+                if (req.body.bounceTo && req.body.bounceTo.length > 0) {
+                    res.redirect(req.body.bounceTo);
+                } else {
+                    res.redirect('/admin/tables');
+                }
             });
         } else {
             req.session.error = 'Anmeldung fehlgeschlagen, Benutzername und Passwort stimmen nicht überein.';
-            //res.redirect(req.session.bounceTo);
+            res.redirect('/admin/tables');
         }
     });
 });
@@ -188,10 +192,6 @@ app.get('/admin/logout', function(req, res){
     req.session.destroy(function(){
         res.redirect('/admin/login/');
     });
-});
-
-app.get('/admin/orders', restrictAdmin, function (req, res) {
-    res.render("admin/orders.ejs");
 });
 
 app.get('/admin/food', restrictAdmin, function (req, res) {

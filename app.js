@@ -16,7 +16,7 @@ app.use(session({
     secret: 'shhhh, very secret'
 }));
 app.use(cors());
-app.options('*', cors());
+app.options('*', cors())
 
 app.use(function(req, res, next){
     var err = req.session.error;
@@ -120,12 +120,10 @@ app.get('/r/:r/:l/:token', function (req, res) {
     var menuUrl = "http://172.16.118.27:8000/orderings/domains/" + renderParam.r + "/locations/" + renderParam.l;
 
     request.post(url, { form: { "token": renderParam.token } }, function (error, response, body) {
-        console.log(body + " " + renderParam.token);
         if (!error && response.statusCode == 200) {
             request.get(menuUrl, function(error, response, body) {
                 if (!error && response.statusCode == 200) {
                     var foodItems = parseData(JSON.parse(response.body));
-                    console.log(foodItems[0].items[0]);
                     renderParam.menu = foodItems;
                     res.render("visitor.ejs", renderParam);
                 } else {
@@ -144,11 +142,9 @@ app.get('/rv/:r/:l', function (req, res) {
 
 app.get('/admin/*', function(req, res, next){
     if (!!req.session.bounceTo){ // already have a bounce destination
-        console.log("allready have bounceTo");
         return next();
     } else {
         if (req.query['bounce']) {
-            console.log("setting bounceTo");
             req.session.bounceTo = req.query['bounce'];
         }
         return next();
@@ -207,15 +203,26 @@ app.get('/admin/tables/', restrictAdmin, function (req, res) {
     var ordersUrl = "http://172.16.118.27:8000/orderings/domains/" + renderParam.r + "/orders/pollcat";
 
     request.get(ordersUrl, function (error, response, body) {
-        console.log(body + " ##### " + renderParam.token);
         if (!error && response.statusCode == 200) {
             renderParam.statuses = JSON.parse(response.body);
             res.render("admin/tables.ejs", renderParam);
         } else {
-            res.redirect("/fkyou");
+            res.redirect("/nope");
         }
     });
-    // res.render("admin/tables.ejs", {tables: sampledata.tablesSample});
+});
+
+
+app.get('/admin/tables_request/', restrictAdmin, function (req, res) {
+    var ordersUrl = "http://172.16.118.27:8000/orderings/domains/1/orders/pollcat";
+    request.get(ordersUrl, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            var jsonObj = JSON.parse(response.body);
+            res.send(jsonObj);
+        } else {
+            res.redirect("/nope");
+        }
+    });
 });
 
 app.get('/admin/tableQrCodes/', restrictAdmin, function (req, res) {

@@ -1,66 +1,29 @@
 <% include ../partials/header.ejs %>
 <% include ../partials/navbar-restaurant.ejs %>
 
-<div class="main">
+<div id="tables-div" class="main">
     <ul id="table-list" class="collection table-list">
         <li class="collection-header"><p>Tischeübersicht</p></li>
-        <% for (var sk in statuses) { var tables = statuses[sk]; %>
-        <% for (var tk in tables) { var t = tables[tk]; %>
-        <li class="collection-item" tableNo="<%= tk %>">
-            Tisch <%= tk %>
-            <% if (t && t.length > 0) {
-                var priceSum = t.map(i => i.count * i["item"].price).reduce((acc, val) => acc + val).toFixed(2);
-            } %>
-            <span class="new badge" data-badge-caption="€"><%= priceSum %></span>
-            <ul class="collection orders">
-                <% t.forEach(function(i) { %>
-                <li class="collection-item row">
-                    <span class="col m8"><%= i.count %>x <%= i["item"].name %></span>
-                    <div class="col m4">
-                        <a class="waves-effect waves-light btn btn-table-confirm"
-                           orderId="<%=i["order"].pk%>">Geliefert</a>
-                        <a class="waves-effect waves-light btn btn-table-done"
-                           orderId="<%=i["order"].pk%>">Erledigen</a>
-                        <span class="new badge"
-                              data-badge-caption="€"><%= (i.count * i["item"].price).toFixed(2) %></span>
-                        <% if (i.status) { %>
-                        <span class="new badge" data-badge-caption=""><%= i.status %></span>
-                        <% } %>
-                    </div>
-                </li>
-                <% }) %>
-            </ul>
-        </li>
-        <% } %>
-        <% } %>
     </ul>
 
-    <!-- no cross site scripting... welp doesnt work i gues :S
     <script>
-
-        var ordersUrl = "http://172.16.118.27:8000/orderings/domains/1/orders/pollcat";
-
+        var ordersUrl = "http://localhost:3000/admin/tables_request";
         var updateTable = function() {
             $.ajax({
                 type: "GET",
                 url: ordersUrl,
                 success: function (data, status) {
-                    if (status == 200) {
-
                         var innerhtml = '<li class="collection-header"><p>Tischeübersicht</p></li>';
-
-                        for (var sk in statuses) {
-                            var tables = statuses[sk];
+                        for (var sk in data) {
+                            var tables = data[sk];
                             for (var tk in tables) {
                                 var t = tables[tk];
                                 innerhtml += '<li class="collection-item" tableNo="' + tk + '">';
                                 innerhtml += 'Tisch ' + tk;
                                 if (t && t.length > 0) {
-                                    var priceSum = t.map(i => i.count * i["item"].price
-                                ).
-                                    reduce((acc, val) => acc + val
-                                ).
-                                    toFixed(2);
+                                    var priceSum = t.map(i => i.count * i["item"].price)
+                                        .reduce((acc, val) => acc + val)
+                                        .toFixed(2);
                                     innerhtml += '<span class="new badge" data-badge-caption="€">' + priceSum + '</span>';
                                 }
 
@@ -70,26 +33,28 @@
                                     innerhtml += '<li class="collection-item row">';
                                     innerhtml += '<span class="col m8">' + i.count + 'x ' + i["item"].name + '</span>';
                                     innerhtml += '<div class="col m4">';
-                                    innerhtml += '<a class="waves-effect waves-light btn btn-table-confirm">Geliefert</a>';
-                                    innerhtml += '<a class="waves-effect waves-light btn btn-table-done">Erledigen</a>';
+                                    innerhtml += '<form action="confirm/1/' + i['order'].pk + '" method="post">';
+                                    innerhtml += '<input type="submit" class="waves-effect waves-light btn btn-table-confirm" value="Fertig" />';
+                                    innerhtml += '</form>';
+                                    innerhtml += '<form action="done/1/' + i['order'].pk + '" method="post">';
+                                    innerhtml += '<input type="submit" class="waves-effect waves-light btn btn-table-confirm" value="Bezahlt" />';
+                                    innerhtml += '</form>';
                                     innerhtml += '<span class="new badge" data-badge-caption="€">' + (i.count * i["item"].price).toFixed(2) + '</span>';
                                     if (i.status) {
                                         innerhtml += '<span class="new badge" data-badge-caption="">' + i.status + '</span>';
                                     }
-                                    innerhtml += '</div>';
-                                    innerhtml += '</li>';
+                                    innerhtml += '</div></li>';
                                 });
+                                innerhtml += '</ul>';
                             }
                         }
-                        $('#table-list').innerHTML = innerhtml;
-                    }
+                        $('#table-list').html(innerhtml);
+
                 }
             });
         }
         setInterval(updateTable, 1000);
-
     </script>
-    -->
 
     <!-- for each table, render a table-list-item which contains the number as well as a list of orders for the current occupants -->
 <% include ../partials/footer.ejs %>

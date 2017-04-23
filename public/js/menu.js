@@ -26,6 +26,7 @@ var Menu = (function () {
     });
     $("#btn_lucky").click(function() {
       itemsForOrder["pk_1"] = 100;
+      $("#1 .amount").html("100");
       prepareOrderModal();
       $('#orderDetailModal').modal('open');
     });
@@ -81,7 +82,7 @@ var Menu = (function () {
     for (foodId in itemsForOrder) {
       var id = foodId.slice(3);
       var foodName = $("#"+ id + " .name").html();
-      var price = parseFloat($("#"+ id + " .price").html()) * itemsForOrder[foodId];
+      var price = parseFloat($("#"+ id + " .price").html()).toFixed(2) * itemsForOrder[foodId];
       total += price;
       console.log(foodName);
       var li = document.createElement("li");

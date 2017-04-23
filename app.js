@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var hash = require('pbkdf2-password')();
 var session = require('express-session');
 var request = require('request');
+var cors = require('cors');
 
 var sampledata = require('./sampledata.js');
 
@@ -14,6 +15,8 @@ app.use(session({
     saveUninitialized: false, // don't create session until something stored
     secret: 'shhhh, very secret'
 }));
+app.use(cors());
+app.options('*', cors());
 
 app.use(function(req, res, next){
     var err = req.session.error;

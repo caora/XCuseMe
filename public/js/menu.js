@@ -116,7 +116,7 @@ var Menu = (function () {
       li.innerHTML = foodName + "<span class='badge'>" + itemsForOrder[foodId] + "</span>";
       orderList.appendChild(li);
     }
-    totalView.innerHTML = total;
+    totalView.innerHTML = total.toFixed(2);
   }
 
 

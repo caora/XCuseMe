@@ -1,11 +1,13 @@
 var Menu = (function () {
   var that = {},
-      TABLE_ID = "1337",
-      API_TOKEN = "420",
+      TABLE_ID,
+      API_TOKEN,
       itemsForOrder = {},
       drinksIds = [1, 8];
 
-  function init () {
+  function init (token, tableId) {
+    API_TOKEN = token;
+    TABLE_ID = tableId;
     initButtons();
     initModal();
     initList();
@@ -47,6 +49,7 @@ var Menu = (function () {
 
     $("#btn-complete-order").click(function() {
       if (isEmpty(itemsForOrder)) {
+
         return;
       } else {
         sendOrder();
@@ -63,14 +66,14 @@ var Menu = (function () {
       });
     }
     var completeOrder = {
-      api_token: API_TOKEN,
+      "api-token": API_TOKEN,
       tableId: TABLE_ID,
       items: items
     };
 
     $.ajax({
       type: "POST",
-      url: "http://localhost:3000/test",
+      url: "http://localhost:3000/makeOrder",
       data: JSON.stringify(completeOrder),
       success: function(data){alert(data);},
       failure: function(errMsg) {

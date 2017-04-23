@@ -121,7 +121,13 @@ app.get('/r/:r/:l/:token', function (req, res) {
 
     request.post(url, { form: { "token": renderParam.token } }, function (error, response, body) {
         if (!error && response.statusCode == 200) {
-            request.get(menuUrl, function(error, response, body) {
+          var options = {
+            url: menuUrl,
+            headers: {
+              'api-token': renderParam.token
+            }
+          };
+            request.get(options, function(error, response, body) {
                 if (!error && response.statusCode == 200) {
                     var foodItems = parseData(JSON.parse(response.body));
                     renderParam.menu = foodItems;
@@ -249,11 +255,10 @@ app.get('/admin/tableQrCodes/', restrictAdmin, function (req, res) {
     res.render("admin/table-qr-codes.ejs", {tables: sampledata.tablesSample});
 });
 
-app.post('/test', function(req, res) {
-  //console.log(req.body);
+app.post('/makeOrder', function(req, res) {
+
   request.post({url:"http://172.16.118.27:8000/orderings/domains/1/locations/1/place", json: req.body}, function(err,httpResponse,body){
-    // console.log(err);
-    // console.log(httpResponse);
+
   });
 });
 

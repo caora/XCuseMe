@@ -58,6 +58,7 @@ class Item(models.Model):
     name = models.CharField(max_length=_NAME_LENGTH)
     description = models.TextField(null=True, blank=True)
     price = models.DecimalField(max_digits=5, decimal_places=2)
+    image = models.CharField(max_length=240, null=True, blank=True)
 
     age_category = models.ForeignKey(AgeCategory, null=True, blank=True)
     domain = models.ForeignKey(Domain)
@@ -78,6 +79,7 @@ class ItemAddOn(models.Model):
 
 
 class Order(models.Model):
+    domain = models.ForeignKey(Domain)
     location = models.ForeignKey(Location)
 
     def __str__(self):
@@ -88,6 +90,11 @@ class ItemOrder(models.Model):
     item = models.ForeignKey(Item)
     count = models.IntegerField()
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    status = models.CharField(max_length=5, choices=(
+        ('Todo', 'Todo'),
+        ('Doing', 'Doing'),
+        ('Done', 'Done'),
+    ), default='Todo')
 
     def __str__(self):
-        return '%dx %s' % (int(self.count), self.item)
+        return '%dx %s (status: %s)' % (int(self.count), self.item ,self.status)

@@ -40,4 +40,34 @@ class ItemSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Item
-        fields = ('pk', 'name', 'description', 'price', 'category', 'tags')
+        fields = ('pk', 'name', 'description', 'price', 'image', 'category', 'tags')
+
+
+class DomainSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Domain
+        fields = ('pk', 'name')
+
+
+class LocationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Location
+        fields = ('pk', 'name')
+
+
+class OrderSerializer(serializers.ModelSerializer):
+    domain = DomainSerializer()
+    location = LocationSerializer()
+
+    class Meta:
+        model = Order
+        fields = ('pk', 'domain', 'location')
+
+
+class ItemOrderSerializer(serializers.ModelSerializer):
+    item = ItemSerializer()
+    order = OrderSerializer()
+
+    class Meta:
+        model = ItemOrder
+        fields = ('pk', 'item', 'count', 'order', 'status')

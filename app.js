@@ -225,6 +225,26 @@ app.get('/admin/tables_request/', restrictAdmin, function (req, res) {
     });
 });
 
+app.post('/admin/confirm/:restaurant/:order', restrictAdmin, function(req, res) {
+    var url = "http://172.16.118.27:8000/orderings/domains/" + req.params.restaurant + "/orders/" + req.params.order + "/update";
+
+    request.put({url: url, json: {'status': 'Doing'}}, function(err, response, body) {
+
+    });
+
+    res.redirect('/admin/tables');
+});
+
+app.post('/admin/done/:restaurant/:order', restrictAdmin, function(req, res) {
+    var url = "http://172.16.118.27:8000/orderings/domains/" + req.params.restaurant + "/orders/" + req.params.order + "/update";
+
+    request.put({url: url, json: {'status': 'Done'}}, function(err, response, body) {
+
+    });
+
+    res.redirect('/admin/tables');
+});
+
 app.get('/admin/tableQrCodes/', restrictAdmin, function (req, res) {
     res.render("admin/table-qr-codes.ejs", {tables: sampledata.tablesSample});
 });

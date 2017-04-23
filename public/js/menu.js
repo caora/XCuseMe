@@ -3,7 +3,8 @@ var Menu = (function () {
       TABLE_ID,
       API_TOKEN,
       itemsForOrder = {},
-      drinksIds = [1, 8];
+      drinksIds = [1, 8],
+      IP_Fabi = "192.168.43.118";
 
   function init (token, tableId) {
     API_TOKEN = token;
@@ -73,7 +74,7 @@ var Menu = (function () {
 
     $.ajax({
       type: "POST",
-      url: "http://localhost:3000/makeOrder",
+      url: "http://"+IP_Fabi+":3000/makeOrder",
       data: JSON.stringify(completeOrder),
       success: function(data){alert(data);},
       failure: function(errMsg) {
@@ -83,7 +84,7 @@ var Menu = (function () {
 
     // $.ajax({
     //   type: "POST",
-    //   url: "http://172.16.118.27:8000/orderings/domains/1/locations/1/place",
+    //   url: "http://"+IP_FABI+":8000/orderings/domains/1/locations/1/place",
     //   data: JSON.stringify(completeOrder),
     //   success: function(data){alert(data);},
     //   failure: function(errMsg) {

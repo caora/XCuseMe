@@ -9,7 +9,8 @@
     </div>
 
     <script>
-        var ordersUrl = "http://localhost:3000/admin/tables_request";
+      var IP_Fabi = "192.168.43.118";
+        var ordersUrl = "http://"+IP_Fabi+":3000/admin/tables_request";
         var updateTable = function() {
             $.ajax({
                 type: "GET",

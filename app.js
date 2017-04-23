@@ -6,6 +6,9 @@ var session = require('express-session');
 var request = require('request');
 var cors = require('cors');
 
+var IP_Dominik = "192.168.43.22";
+var IP_Fabi = "192.168.43.118";
+
 var sampledata = require('./sampledata.js');
 
 app.set('view engine', 'ejs');
@@ -116,8 +119,8 @@ function isIn(cat, arr) {
 app.get('/r/:r/:l/:token', function (req, res) {
     var renderParam = {r: req.params.r, l: req.params.l, token:req.params.token, menu: {}};
 
-    var url = "http://172.16.118.27:8000/orderings/domains/" + renderParam.r + "/locations/" + renderParam.l + "/token/validate";
-    var menuUrl = "http://172.16.118.27:8000/orderings/domains/" + renderParam.r + "/locations/" + renderParam.l;
+    var url = "http://" + IP_Dominik + ":8000/orderings/domains/" + renderParam.r + "/locations/" + renderParam.l + "/token/validate";
+    var menuUrl = "http://" + IP_Dominik + ":8000/orderings/domains/" + renderParam.r + "/locations/" + renderParam.l;
 
     request.post(url, { form: { "token": renderParam.token } }, function (error, response, body) {
         if (!error && response.statusCode == 200) {
@@ -206,7 +209,7 @@ app.get('/admin/food', restrictAdmin, function (req, res) {
 
 app.get('/admin/tables/', restrictAdmin, function (req, res) {
     var renderParam = {r: 1, menu: {}};
-    var ordersUrl = "http://172.16.118.27:8000/orderings/domains/" + renderParam.r + "/orders/pollcat";
+    var ordersUrl = "http://"+IP_FABI+":8000/orderings/domains/" + renderParam.r + "/orders/pollcat";
 
     request.get(ordersUrl, function (error, response, body) {
         if (!error && response.statusCode == 200) {
@@ -220,7 +223,7 @@ app.get('/admin/tables/', restrictAdmin, function (req, res) {
 
 
 app.get('/admin/tables_request/', restrictAdmin, function (req, res) {
-    var ordersUrl = "http://172.16.118.27:8000/orderings/domains/1/orders/pollcat";
+    var ordersUrl = "http://"+IP_FABI+":8000/orderings/domains/1/orders/pollcat";
     request.get(ordersUrl, function (error, response, body) {
         if (!error && response.statusCode == 200) {
             var jsonObj = JSON.parse(response.body);
@@ -232,7 +235,7 @@ app.get('/admin/tables_request/', restrictAdmin, function (req, res) {
 });
 
 app.post('/admin/confirm/:restaurant/:order', restrictAdmin, function(req, res) {
-    var url = "http://172.16.118.27:8000/orderings/domains/" + req.params.restaurant + "/orders/" + req.params.order + "/update";
+    var url = "http://"+IP_FABI+":8000/orderings/domains/" + req.params.restaurant + "/orders/" + req.params.order + "/update";
 
     request.put({url: url, json: {'status': 'Doing'}}, function(err, response, body) {
 
@@ -242,7 +245,7 @@ app.post('/admin/confirm/:restaurant/:order', restrictAdmin, function(req, res) 
 });
 
 app.post('/admin/done/:restaurant/:order', restrictAdmin, function(req, res) {
-    var url = "http://172.16.118.27:8000/orderings/domains/" + req.params.restaurant + "/orders/" + req.params.order + "/update";
+    var url = "http://"+IP_FABI+":8000/orderings/domains/" + req.params.restaurant + "/orders/" + req.params.order + "/update";
 
     request.put({url: url, json: {'status': 'Done'}}, function(err, response, body) {
 
@@ -256,8 +259,8 @@ app.get('/admin/tableQrCodes/', restrictAdmin, function (req, res) {
 });
 
 app.post('/makeOrder', function(req, res) {
-
-  request.post({url:"http://172.16.118.27:8000/orderings/domains/1/locations/1/place", json: req.body}, function(err,httpResponse,body){
+  console.log("ordering");
+  request.post({url:"http://"+IP_FABI+":8000/orderings/domains/1/locations/1/place", json: req.body}, function(err,httpResponse,body){
 
   });
 });

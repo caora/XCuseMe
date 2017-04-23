@@ -14,5 +14,5 @@ REST API + Database connection.
 
 ### rpi
 
-RaspberryPi client for close-by authentication.
+RaspberryPi client for close-by user authentication.
 

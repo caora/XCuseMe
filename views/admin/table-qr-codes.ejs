@@ -3,26 +3,30 @@
 
 <div class="main">
     <ul class="collection table-list">
-        <li class="collection-header"><p>QR-Code Tischübersicht</p></li>
-        <div class="row">
-        <% tables.forEach(function(t) { %>
-            <div class="card col s12 m6 l3">
-                <span class="card-title">Tisch <%=t.tableNo%></span>
-                <div class="card-content">
-                <div id="table-qrcode-<%=t.tableNo%>"></div>
-                <script type="text/javascript">
-                    var qrcode = new QRCode(document.getElementById("table-qrcode-<%=t.tableNo%>"), {
-                        text: "172.16.118.230:3000/rv/1/<%=t.tableNo%>",
-                        width: 128,
-                        height: 128,
-                        colorDark : "#000000",
-                        colorLight : "#ffffff",
-                        correctLevel : QRCode.CorrectLevel.H
-                    });
-                </script>
+        <div class="container" id="qr-codes">
+            <li class="collection-header"><p>QR-Code Tischübersicht</p></li>
+            <div class="row">
+            <% tables.forEach(function(t) { %>
+                <div class="col s12 m6 l3">
+                    <div class="card">
+                        <span class="card-title">Tisch <%=t.tableNo%></span>
+                        <div class="card-content">
+                            <div id="table-qrcode-<%=t.tableNo%>"></div>
+                            <script type="text/javascript">
+                                var qrcode = new QRCode(document.getElementById("table-qrcode-<%=t.tableNo%>"), {
+                                text: "172.16.119.108:3000/rv/1/<%=t.tableNo%>",
+                                width: 128,
+                                height: 128,
+                                colorDark : "#000000",
+                                colorLight : "#ffffff",
+                                correctLevel : QRCode.CorrectLevel.H
+                                });
+                            </script>
+                        </div>
+                    </div>
                 </div>
+            <% }) %>
             </div>
-        <% }) %>
         </div>
     </ul>
 

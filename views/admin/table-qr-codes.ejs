@@ -1,0 +1,30 @@
+<% include ../partials/header.ejs %>
+<% include ../partials/navbar-restaurant.ejs %>
+
+<div class="main">
+    <ul class="collection table-list">
+        <li class="collection-header"><p>Tisch QR-Code Übersicht</p></li>
+        <div class="row">
+        <% tables.forEach(function(t) { %>
+            <div class="card col s12 m6 l3">
+                <span class="card-title">Tisch <%=t.tableNo%></span>
+                <div class="card-content">
+                <div id="table-qrcode-<%=t.tableNo%>"></div>
+                <script type="text/javascript">
+                    var qrcode = new QRCode(document.getElementById("table-qrcode-<%=t.tableNo%>"), {
+                        text: "localhost:3000/<%=t.tableNo%>",
+                        width: 128,
+                        height: 128,
+                        colorDark : "#000000",
+                        colorLight : "#ffffff",
+                        correctLevel : QRCode.CorrectLevel.H
+                    });
+                </script>
+                </div>
+            </div>
+        <% }) %>
+        </div>
+    </ul>
+
+    <!-- for each table, render a table-list-item which contains the number as well as a list of orders for the current occupants -->
+<% include ../partials/footer.ejs %>

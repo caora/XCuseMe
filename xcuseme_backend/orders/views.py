@@ -19,17 +19,23 @@ logger = logging.getLogger('django.orders.views')
 
 def validate_api_token(method):
     def wrapper(self, request, domain, location):
-        if not request.session.session_key:
-            logger.error('No session key available')
-            return HttpResponse('No session key available', status=403)
+        try:
+            data = json.loads(request.data.keys()[0])
+        except IndexError:
+            data = {}
+        logger.info('[VALIDATE API TOKEN] data: %s', data)
+        token_value = request.META.get('HTTP_API_TOKEN') or data.get('api-token')
+        if not token_value:
+            logger.error('No token was provided')
+            return HttpResponse('No token was provided', status=403)
         else:
             tokens = APIToken.objects.filter(
-                value=int(request.session.session_key),
+                value=int(token_value),
                 domain=Domain.objects.get(pk=domain),
                 location=Location.objects.get(pk=location),
             )
             if not tokens:
-                return HttpResponse('Invalid session key', status=403)
+                return HttpResponse('Invalid token', status=403)
         return method(self, request, domain, location)
     return wrapper
 
@@ -65,7 +71,7 @@ class ValidateAPIToken(APIView):
 
 
 class Menu(APIView):
-    # @validate_api_token
+    @validate_api_token
     def get(self, request, domain, location):
         items = Domain.objects.get(pk=domain).item_set
         serializer = ItemSerializer(items.all(), many=True)
@@ -73,7 +79,6 @@ class Menu(APIView):
 
 
 class AddMenuItems(APIView):
-    # @validate_api_token
     def post(self, request, domain):
         serializer = ItemSerializer(data=request.data, many=True)
         if not serializer.is_valid():
@@ -90,7 +95,7 @@ class ItemView(APIView):
 
 
 class PlaceOrder(APIView):
-    # @validate_api_token
+    @validate_api_token
     def post(self, request, domain, location):
         logger.info('[PlaceOrder] request.data: %s', request.data)
         data = json.loads(request.data.keys()[0])

@@ -2,7 +2,8 @@ var Menu = (function () {
   var that = {},
       TABLE_ID = "1337",
       API_TOKEN = "420",
-      itemsForOrder = {};
+      itemsForOrder = {},
+      drinksIds = [1, 8];
 
   function init () {
     initButtons();
@@ -29,6 +30,18 @@ var Menu = (function () {
       $("#1 .amount").html("100");
       prepareOrderModal();
       $('#orderDetailModal').modal('open');
+    });
+    $("#btn_random").click(function() {
+      var randomID = drinksIds[Math.floor(Math.random()*drinksIds.length)];
+      itemsForOrder["pk_"+randomID] = 1;
+      $("#" + randomID + " .amount").html("1");
+      prepareOrderModal();
+      $('#orderDetailModal').modal('open');
+    });
+    $("#btn_reset").click(function() {
+      $(".amount").text("0");
+      itemsForOrder = {};
+      $('.button-collapse').sideNav('hide');
     });
 
 
@@ -57,13 +70,23 @@ var Menu = (function () {
 
     $.ajax({
       type: "POST",
-      url: "http://172.16.118.27:8000/orderings/domains/1/locations/1/place",
+      url: "http://localhost:3000/test",
       data: JSON.stringify(completeOrder),
       success: function(data){alert(data);},
       failure: function(errMsg) {
           alert(errMsg);
       }
     });
+
+    // $.ajax({
+    //   type: "POST",
+    //   url: "http://172.16.118.27:8000/orderings/domains/1/locations/1/place",
+    //   data: JSON.stringify(completeOrder),
+    //   success: function(data){alert(data);},
+    //   failure: function(errMsg) {
+    //       alert(errMsg);
+    //   }
+    // });
 
   }
 

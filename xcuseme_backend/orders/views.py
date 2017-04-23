@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from collections import defaultdict
 import json
 import logging
 
 from django.shortcuts import render
 import rest_framework.permissions as permissions
-from rest_framework.generics import UpdateAPIView
+from rest_framework.generics import DestroyAPIView, UpdateAPIView
 from rest_framework.views import APIView
 from django.http.response import HttpResponse, JsonResponse
 
@@ -52,7 +53,7 @@ class ValidateAPIToken(APIView):
             try:
                 int(token_value)
             except ValueError:
-                return HttpResponse('Not a valid number', status=400)
+                return HttpResponse('Not a valid number (%s)' % type(token_value), status=400)
             APIToken.objects.get(
                 value=int(token_value),
                 domain=Domain.objects.get(pk=domain),
@@ -91,20 +92,20 @@ class ItemView(APIView):
 class PlaceOrder(APIView):
     # @validate_api_token
     def post(self, request, domain, location):
-        logger.error('[PlaceOrder] request.data: %s', request.data)
+        logger.info('[PlaceOrder] request.data: %s', request.data)
         data = json.loads(request.data.keys()[0])
-        logger.error('[PlaceOrder] json: %s', data)
-        logger.error('[PlaceOrder] domain: %s, location: %s', domain, location)
+        logger.info('[PlaceOrder] json: %s', data)
+        logger.info('[PlaceOrder] domain: %s, location: %s', domain, location)
         order = Order(
             domain=Domain.objects.get(pk=domain),
             location=Location.objects.get(pk=location)
         )
         order.save()
         for item in data['items']:
-            logger.error('[PlaceOrder] item: %s', item)
+            logger.info('[PlaceOrder] item: %s', item)
             pk = int(item['pk'])
-            logger.error('[PlaceOrder] type(pk): %s', type(pk))
-            logger.error('[PlaceOrder] pk: %s', pk)
+            logger.info('[PlaceOrder] type(pk): %s', type(pk))
+            logger.info('[PlaceOrder] pk: %s', pk)
             item_order = ItemOrder(
                 item=Item.objects.get(pk=pk),
                 count=item['amount'],
@@ -118,20 +119,20 @@ class PlaceOrder(APIView):
 class PlaceOrderJSON(APIView):
     # @validate_api_token
     def post(self, request, domain, location):
-        logger.error('[PlaceOrder] request.data: %s', request.data)
+        logger.info('[PlaceOrder] request.data: %s', request.data)
         data = request.data
-        logger.error('[PlaceOrder] json: %s', data)
-        logger.error('[PlaceOrder] domain: %s, location: %s', domain, location)
+        logger.info('[PlaceOrder] json: %s', data)
+        logger.info('[PlaceOrder] domain: %s, location: %s', domain, location)
         order = Order(
             domain=Domain.objects.get(pk=domain),
             location=Location.objects.get(pk=location)
         )
         order.save()
         for item in data['items']:
-            logger.error('[PlaceOrder] item: %s', item)
+            logger.info('[PlaceOrder] item: %s', item)
             pk = int(item['pk'])
-            logger.error('[PlaceOrder] type(pk): %s', type(pk))
-            logger.error('[PlaceOrder] pk: %s', pk)
+            logger.info('[PlaceOrder] type(pk): %s', type(pk))
+            logger.info('[PlaceOrder] pk: %s', pk)
             item_order = ItemOrder(
                 item=Item.objects.get(pk=pk),
                 count=item['amount'],
@@ -152,10 +153,37 @@ class PollOrders(APIView):
         return JsonResponse(item_orders, safe=False)
 
 
+class PollOrdersCategorized(APIView):
+    def get(self, request, domain):
+        orders = Order.objects.filter(domain=Domain.objects.get(pk=domain))
+        item_order_set = sum(map(
+            lambda order: list(order.itemorder_set.all()),
+            orders
+        ), [])
+        per_statuses = defaultdict(list)
+        for item_order in item_order_set:
+            per_statuses[item_order.status].append(item_order)
+        for status in per_statuses:
+            per_table = defaultdict(list)
+            for item_order in per_statuses[status]:
+                serializer = ItemOrderSerializer(item_order)
+                per_table[item_order.order.location.pk].append(serializer.data)
+            per_statuses[status] = per_table
+        return JsonResponse(per_statuses, safe=False)
+
+
 class UpdateItemOrder(UpdateAPIView):
     def put(self, request, order, *args, **kwargs):
         data = request.data
+        logger.info('[UpdateItemOrder] data: %s', data)
         item_order = ItemOrder.objects.get(pk=order)
         item_order.status = data['status']
         item_order.save()
+        return HttpResponse()
+
+
+class DeleteItemOrder(DestroyAPIView):
+    def delete(self, request, order, *args, **kwargs):
+        item_order = ItemOrder.objects.get(pk=order)
+        item_order.delete()
         return HttpResponse()

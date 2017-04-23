@@ -8,56 +8,36 @@
         <% for (var tk in tables) { var t = tables[tk]; %>
         <li class="collection-item" tableNo="<%= tk %>">
             Tisch <%= tk %>
-            <% if (t.item && t.item.length > 0) {
-                var priceSum = t.item.map(o => o.price * o.amount).reduce((acc, val) => acc + val);
-            %>
+            <% if (t && t.length > 0) {
+                var priceSum = t.map(i => i.count * i["item"].price).reduce((acc, val) => acc + val).toFixed(2);
+            } %>
             <span class="new badge" data-badge-caption="€"><%= priceSum %></span>
             <ul class="collection orders">
                 <% t.forEach(function(i) { %>
-                <% if (t.status) { %>
-                    <span class="new badge" data-badge-caption=""><%= t.status%></span>
-                <% } %>
-                <li class="collection-item">
-                    <%= i.count %>x <%=o.name %>
-                    <% if(o.size) { %><%=o.size%><% } %>
-                    <span class="new badge" data-badge-caption="€"><%= (o.price * o.amount).toFixed(2) %></span>
+                <li class="collection-item row">
+                    <span class="col m8"><%= i.count %>x <%= i["item"].name %></span>
+                    <div class="col m4">
+                        <a class="waves-effect waves-light btn btn-table-confirm"
+                           orderId="<%=i["order"].pk%>">Geliefert</a>
+                        <a class="waves-effect waves-light btn btn-table-done"
+                           orderId="<%=i["order"].pk%>">Erledigen</a>
+                        <span class="new badge"
+                              data-badge-caption="€"><%= (i.count * i["item"].price).toFixed(2) %></span>
+                        <% if (i.status) { %>
+                            <span class="new badge" data-badge-caption=""><%= i.status %></span>
+                        <% } %>
+                    </div>
                 </li>
                 <% }) %>
             </ul>
-            <a class="waves-effect waves-light btn btn-table-confirm">Geliefert</a>
-            <a class="waves-effect waves-light btn btn-table-done">Erledigen</a>
-            <% } %>
         </li>
         <% } %>
         <% } %>
     </ul>
 
+    <script>
+
+    </script>
+
     <!-- for each table, render a table-list-item which contains the number as well as a list of orders for the current occupants -->
 <% include ../partials/footer.ejs %>
-
-
-<!-- BACKUP
-    <li class="collection-item<% if (t.free) { %> <%=" table-free"%> <% } %>" tableNo="<%= t.tableNo %>">
-            Tisch <%= t.tableNo %>
-            <% if (t.item && t.item.length > 0) {
-    var priceSum = t.item.map(o => o.price * o.amount).reduce((acc, val) => acc + val);
-%>
-            <span class="new badge" data-badge-caption="€"><%= priceSum %></span>
-            <% if (t.status) { %>
-                <span class="new badge" data-badge-caption=""><%= t.status%></span>
-            <% } %>
-            <ul class="collection orders">
-                <% t.item.forEach(function(o) { %>
-                <li class="collection-item">
-                    <%= o.amount %>x <%=o.name %>
-                    <% if(o.size) { %><%=o.size%><% } %>
-                    <span class="new badge" data-badge-caption="€"><%= (o.price * o.amount).toFixed(2) %></span>
-                </li>
-                <% }) %>
-            </ul>
-            <a class="waves-effect waves-light btn btn-table-confirm">Geliefert</a>
-            <a class="waves-effect waves-light btn btn-table-done">Erledigen</a>
-            <% } %>
-        </li>
-
-    -->

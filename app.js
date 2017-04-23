@@ -31,7 +31,7 @@ var admins = {
     xq: { name: 'xq' }
 };
 
-hash({ password: 'foobar' }, function (err, pass, salt, hash) {
+hash({ password: 'xq' }, function (err, pass, salt, hash) {
     if (err) throw err;
     // store the salt & hash in the "db"
     admins.xq.salt = salt;
@@ -136,7 +136,7 @@ app.get('/r/:r/:l/:token', function (req, res) {
 });
 
 app.get('/rv/:r/:l', function (req, res) {
-    res.render("verify.ejs");
+    res.render("verify.ejs", {r: req.params.r, l: req.params.l});
 });
 
 app.get('/admin/*', function(req, res, next){
@@ -206,7 +206,7 @@ app.get('/admin/tables/', restrictAdmin, function (req, res) {
     request.get(ordersUrl, function (error, response, body) {
         console.log(body + " ##### " + renderParam.token);
         if (!error && response.statusCode == 200) {
-            renderParam.tables = body;
+            renderParam.statuses = JSON.parse(response.body);
             res.render("admin/tables.ejs", renderParam);
         } else {
             res.redirect("/fkyou");

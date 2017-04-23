@@ -249,6 +249,14 @@ app.get('/admin/tableQrCodes/', restrictAdmin, function (req, res) {
     res.render("admin/table-qr-codes.ejs", {tables: sampledata.tablesSample});
 });
 
+app.post('/test', function(req, res) {
+  //console.log(req.body);
+  request.post({url:"http://172.16.118.27:8000/orderings/domains/1/locations/1/place", json: req.body}, function(err,httpResponse,body){
+    // console.log(err);
+    // console.log(httpResponse);
+  });
+});
+
 app.use(express.static(__dirname + '/public'));
 
 app.listen(3000, function () {

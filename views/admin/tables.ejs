@@ -40,10 +40,10 @@
                                     innerhtml += '<span class="col m8">' + i.count + 'x ' + i["item"].name + '</span>';
                                     innerhtml += '<div class="col m4">';
                                     innerhtml += '<div class="button-box">';
-                                    innerhtml += '<form action="confirm/1/' + i['order'].pk + '" method="post">';
+                                    innerhtml += '<form action="confirm/1/' + i.pk + '" method="post">';
                                     innerhtml += '<input type="submit" class="waves-effect waves-light btn yellow darken-3 btn-table-confirm" value="Fertig" />';
                                     innerhtml += '</form>';
-                                    innerhtml += '<form action="done/1/' + i['order'].pk + '" method="post">';
+                                    innerhtml += '<form action="done/1/' + i.pk + '" method="post">';
                                     innerhtml += '<input type="submit" class="waves-effect waves-light btn green btn-table-done" value="Bezahlt" />';
                                     innerhtml += '</form>';
                                     innerhtml += '</div>';

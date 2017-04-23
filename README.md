@@ -2,8 +2,7 @@
 
 The _greatest_ project @ #Hackaburg17 `<333`
 
-## Check out the different branches for the different components of our
-application
+## Check out the different branches for the different components of our application
 
 ### develop
 

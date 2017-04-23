@@ -7,7 +7,7 @@ var request = require('request');
 var cors = require('cors');
 
 var IP_Dominik = "192.168.43.22";
-var IP_Fabi = "192.168.43.118";
+var IP_Fabi = "localhost";
 
 var sampledata = require('./sampledata.js');
 
@@ -19,7 +19,7 @@ app.use(session({
     secret: 'shhhh, very secret'
 }));
 app.use(cors());
-app.options('*', cors())
+app.options('*', cors());
 
 app.use(function(req, res, next){
     var err = req.session.error;
@@ -145,10 +145,6 @@ app.get('/r/:r/:l/:token', function (req, res) {
     });
 });
 
-app.get('/rv/:r/:l', function (req, res) {
-    res.render("verify.ejs", {r: req.params.r, l: req.params.l});
-});
-
 app.get('/admin/*', function(req, res, next){
     if (!!req.session.bounceTo){ // already have a bounce destination
         return next();
@@ -264,6 +260,10 @@ app.post('/makeOrder', function(req, res) {
   request.post({url:"http://"+IP_Dominik+":8000/orderings/domains/1/locations/1/place", json: req.body}, function(err,httpResponse,body){
 
   });
+});
+
+app.use(function(req, res, next){
+    res.status(404).render('404.ejs', {title: "Sorry, page not found"});
 });
 
 app.use(express.static(__dirname + '/public'));

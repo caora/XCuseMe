@@ -1,8 +1,9 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+var request = require('request');
 var app = express();
 
-var foodItems = [
+var aaaa = [
     {
         pk: 1,
         name: "Hauptspeisen",
@@ -230,8 +231,63 @@ var tablesSample = [{
 
 app.set('view engine', 'ejs');
 
+function parseData(menu) {
+  var data = [];
+  var usedCategories = [];
+  menu.forEach((item) => {
+	if (!isIn(item.category.name, usedCategories)) {
+
+		usedCategories.push(item.category.name);
+		data.push({
+			pk: item.category.pk,
+			name: item.category.name,
+			items: [{
+				pk: item.pk,
+				name: item.name,
+				description: item.description,
+				image: item.image,
+				tags: item.tags,
+        price: item.price
+			}]
+		});
+	} else {
+		for (var i = 0; i < data.length; i++) {
+			if (data[i].name == item.category.name) {
+					data[i].items.push({
+					pk: item.pk,
+					name: item.name,
+					description: item.description,
+					image: item.image,
+					tags: item.tags,
+          price: item.price
+				});
+			}
+		}
+	}
+
+});
+
+return data;
+}
+
+function isIn(cat, arr) {
+	for (var i = 0; i < arr.length; i++) {
+		if(arr[i] == cat) {
+			return true;
+		}
+	}
+	return false;
+}
+
 app.get('/', function (req, res) {
+  console.log("loading");
+  request('http://172.16.118.27:8000/orderings/domains/1/locations/1', function (error, response, body) {
+
+    var foodItems = parseData(JSON.parse(response.body));
+    console.log(foodItems[0].items[0]);
     res.render("visitor.ejs", {menu: foodItems});
+  });
+
 });
 
 app.get('/verify/:restaurantId/:tableId', function (req, res) {

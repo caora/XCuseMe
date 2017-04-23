@@ -1,4 +1,6 @@
 <div id="menu">
+
+  <input class="search" />
   <!-- List -->
   <ul class="list collection">
     <% for(var i=0; i<menu.length; i++) { %>
@@ -11,7 +13,7 @@
 
           <li class="collection-item avatar" id="<%= menu[i].items[j].pk %>">
               <!-- <img src="<%= menu[i].img %>" class="circle"> -->
-              <img src="http://imworld.aufeminin.com/dossiers/D20130502/ernaehrungsfehler-7-132203_L.jpg" class="circle">
+              <img src="images/<%= menu[i].items[j].name %>.jpg" class="circle">
               <span class="name title"> <%= menu[i].items[j].name %> </span>
               <p class="description"><%= menu[i].items[j].description %></p>
               <p class="price"><%= menu[i].items[j].price %> €</p>
@@ -19,7 +21,11 @@
               <i id class="fa fa-arrow-down btn_minus_amount" aria-hidden="true"></i>
               <span class="amount">0</span>
 
-
+              <ul class="tags<%= menu[i].items[j].pk %> nodisplay">
+              <% for(var z=0; z<menu[i].items[j].tags.length; z++) { %>
+                <li class="tag"><%= menu[i].items[j].tags[z].name %></li>
+                <% } %>
+              </ul>
           </li>
           <% } %>
 
@@ -31,8 +37,12 @@
  <!-- Modal FoodItem Details -->
  <div id="foodDetailModal" class="modal bottom-sheet">
    <div class="modal-content">
-     <h4 class="modal-name"></h4>
-     <p class="modal-description"></p>
+     <img src="" class="modal-img circle">
+     <div class="rest">
+       <h4 class="modal-name"></h4>
+       <p class="modal-description"></p>
+       <p class="modal-price"></p>
+     </div>
    </div>
  </div>
 

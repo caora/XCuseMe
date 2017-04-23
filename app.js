@@ -7,7 +7,7 @@ var request = require('request');
 var cors = require('cors');
 
 var IP_Dominik = "192.168.43.22";
-var IP_Fabi = "localhost";
+var IP_Fabi = "192.168.43.118";
 
 var sampledata = require('./sampledata.js');
 

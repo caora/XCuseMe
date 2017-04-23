@@ -1,6 +1,7 @@
 var Menu = (function () {
   var that = {},
       TABLE_ID = "1337",
+      API_TOKEN = "420",
       itemsForOrder = {};
 
   function init () {
@@ -24,7 +25,7 @@ var Menu = (function () {
       $('#orderDetailModal').modal('open');
     });
     $("#btn_lucky").click(function() {
-      itemsForOrder["pk_7"] = 100;
+      itemsForOrder["pk_1"] = 100;
       prepareOrderModal();
       $('#orderDetailModal').modal('open');
     });
@@ -48,13 +49,14 @@ var Menu = (function () {
       });
     }
     var completeOrder = {
+      api_token: API_TOKEN,
       tableId: TABLE_ID,
       items: items
     };
 
     $.ajax({
       type: "POST",
-      url: "http://192.168.43.22:8000/orderings/domains/1/locations/1/place",
+      url: "http://172.16.118.27:8000/orderings/domains/1/locations/1/place",
       data: JSON.stringify(completeOrder),
       success: function(data){alert(data);},
       failure: function(errMsg) {
@@ -93,10 +95,14 @@ var Menu = (function () {
 
   function initModal() {
     var modalName = $(".modal-name"),
-        modalDesc = $(".modal-description");
+        modalDesc = $(".modal-description"),
+        modalPrice = $(".modal-price"),
+        modalImg = document.getElementsByClassName("modal-img")[0],
+        modalContent = document.getElementsByClassName("modal-content")[0];
 
     $('.list .collection-item').click(function(event) {
-      var foodItemId;
+      var foodItemId,
+          tagList;
       if (event.target.id == "") {
         if (event.target.tagName == "I") {
           return;
@@ -105,12 +111,34 @@ var Menu = (function () {
       } else {
         foodItemId = event.target.id;
       }
+      tagList = $(".tags" + foodItemId);
+      console.log(tagList.children());
 
+      for (var i = 0; i < tagList.children().length; i++) {
+        var div = document.createElement("div");
+        div.className = "chip";
+        div.innerHTML = tagList.children()[i].innerHTML;
+        modalContent.appendChild(div);
+      }
+
+      modalImg.src = "/images/" + $("#" + foodItemId + " .name").text().trim() + ".jpg";
+      modalPrice.html($("#" + foodItemId + " .price").text());
       modalName.html($("#" + foodItemId + " .name").text());
-      modalDesc.html($("#" + foodItemId + " .description").text())
+      modalDesc.html($("#" + foodItemId + " .description").text());
+
       $('#foodDetailModal').modal('open');
     });
-    $('.modal').modal();
+    $('.modal').modal({
+      dismissible: true, // Modal can be dismissed by clicking outside of the modal
+      opacity: .5, // Opacity of modal background
+      inDuration: 300, // Transition in duration
+      outDuration: 200, // Transition out duration
+      startingTop: '4%', // Starting top style attribute
+      endingTop: '10%',
+      complete: function() {
+        $(".chip").remove();
+      } // Callback for Modal close
+    });
     $('.orderModal').modal({
       dismissible: true, // Modal can be dismissed by clicking outside of the modal
       opacity: .5, // Opacity of modal background

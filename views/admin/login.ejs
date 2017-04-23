@@ -3,42 +3,44 @@
 
 <div class="main">
     <ul class="collection table-list">
-        <li class="collection-header"><p>Administrationslogin</p></li>
-        <% if (errorMessage) { %>
-            <li class="collection-item msg error" style="background-color: #ffcdd2">
-                <i class="fa fa-exclamation-triangle fa-2x" aria-hidden="true"></i><span>
-                    <%- errorMessage %>
-                    </span>
+        <div class="container" id="login">
+            <li class="collection-header"><p>Administrationslogin</p></li>
+            <% if (errorMessage) { %>
+                <li class="collection-item msg error" style="background-color: #ffcdd2">
+                    <i class="fa fa-exclamation-triangle fa-2x" aria-hidden="true"></i><span>
+                        <%- errorMessage %>
+                        </span>
+                </li>
+            <% } %>
+            <li class="collection-item">
+                <form method="post" action="/admin/login">
+                    <div class="input-field col s6">
+                        <input id="username" name="username" type="text" class="validate">
+                        <label for="username">Benutzername</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="password" name="password" type="password" class="validate">
+                        <label for="password">Passwort</label>
+                    </div>
+                    <input id="input-bounceTo" type="hidden" name="bounceTo" value>
+                    <button class="btn waves-effect waves-light red darken-2" type="submit" name="action">Login
+                        <i class="material-icons right">send</i>
+                    </button>
+                </form>
+                <script>
+                    function getParameterByName(name, url) {
+                        if (!url) url = window.location.href;
+                        name = name.replace(/[\[\]]/g, "\\$&");
+                        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                            results = regex.exec(url);
+                        if (!results) return null;
+                        if (!results[2]) return '';
+                        return decodeURIComponent(results[2].replace(/\+/g, " "));
+                    }
+                    $('#input-bounceTo').val(getParameterByName('bounce'));
+                </script>
             </li>
-        <% } %>
-        <li class="collection-item">
-            <form method="post" action="/admin/login">
-                <div class="input-field col s6">
-                    <input id="username" name="username" type="text" class="validate">
-                    <label for="username">Benutzername</label>
-                </div>
-                <div class="input-field col s6">
-                    <input id="password" name="password" type="password" class="validate">
-                    <label for="password">Passwort</label>
-                </div>
-                <input id="input-bounceTo" type="hidden" name="bounceTo" value>
-                <button class="btn waves-effect waves-light" type="submit" name="action">Login
-                    <i class="material-icons right">send</i>
-                </button>
-            </form>
-            <script>
-                function getParameterByName(name, url) {
-                    if (!url) url = window.location.href;
-                    name = name.replace(/[\[\]]/g, "\\$&");
-                    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-                        results = regex.exec(url);
-                    if (!results) return null;
-                    if (!results[2]) return '';
-                    return decodeURIComponent(results[2].replace(/\+/g, " "));
-                }
-                $('#input-bounceTo').val(getParameterByName('bounce'));
-            </script>
-        </li>
+        </div>
     </ul>
 
     <!-- for each table, render a table-list-item which contains the number as well as a list of orders for the current occupants -->

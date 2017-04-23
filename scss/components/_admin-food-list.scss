@@ -27,11 +27,19 @@
     }
 
     &--info {
-      padding: 15px;
+      padding: 20px;
 
       .row {
         margin-bottom: 0;
       }
+    }
+
+    &--price-section {
+      margin: 10px 0;
+    }
+
+    &--tags {
+      margin-top: 30px;
     }
 
     &--image {
@@ -43,4 +51,15 @@
 
 #admin-food {
     border: none;
+}
+
+.tab-container--top {
+  + .create-item {
+    margin-top: 30px;
+  }
+}
+
+.create-item {
+  display: flex;
+  justify-content: flex-end;
 }

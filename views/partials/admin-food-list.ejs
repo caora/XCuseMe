@@ -3,7 +3,7 @@
     <div class="admin--food-item card">
         <div class="food-item--header">
             <h2><%= foodItem.name %></h2>
-            <a class="btn white btn-flat"><i class="fa fa-pencil"></i></a>
+            <a class="btn white btn-flat" href="/admin/food/<%= foodItem.pk %>"><i class="fa fa-pencil"></i></a>
         </div>
         <div class="food-item--info">
             <div class="row">
@@ -11,33 +11,46 @@
                     <div class="food-item--description">
                         <%= foodItem.description %>
                     </div>
-                    <ul class="food-item--sizes">
-                        <% if(foodItem.sizes) { %>
-                        <% for(var j=0; j<foodItem.sizes.length; j++) { %>
-                        <li>
-                            <%= foodItem.sizes[j] %>
-                        </li>
-                        <% } %>
-                        <% } else { %>
-                        <li>
-                            Price
-                        </li>
-                        <% } %>
-                    </ul>
-                    <ul class="food-item--prices">
-                        <% for(var j=0; j<foodItem.prices.length; j++) { %>
-                        <li>
-                            <%= foodItem.prices[j] %>
-                        </li>
-                        <% } %>
-                    </ul>
+                    <div class="food-item--price-section">
+                        <div class="row">
+                            <ul class="food-item--sizes col s6 l3">
+                                <% if(foodItem.sizes) { %>
+                                <% for(var j=0; j<foodItem.sizes.length; j++) { %>
+                                <li>
+                                    <%= foodItem.sizes[j] %>
+                                </li>
+                                <% } %>
+                                <% } else { %>
+                                <li>
+                                    Price
+                                </li>
+                                <% } %>
+                            </ul>
+                            <ul class="food-item--prices col s6 l3">
+                                <% for(var j=0; j<foodItem.prices.length; j++) { %>
+                                <li>
+                                    <%= foodItem.prices[j].toFixed(2) %> €
+                                </li>
+                                <% } %>
+                            </ul>
+                        </div>
+                    </div>
                     <div class="food-item--restriction">
                         <% if(foodItem.restriction) { %>
                         Only sell to over <%= foodItem.restriction %>s
                         <% } else { %>
-                        No age restriction
+                        <em>No age restriction</em>
                         <% } %>
                     </div>
+                    <% if(foodItem.tags) { %>
+                        <div class="food-item--tags">
+                            <% for(var j=0; j<foodItem.tags.length; j++) { %>
+                            <div class="chip blue lighten-4">
+                                <%= foodItem.tags[j] %>
+                            </div>
+                            <% } %>
+                        </div>
+                    <% } %>
                 </div>
                 <div class="food-item--image-container col s3 l2">
                     <img class="food-item--image" src="<%= foodItem.img %>" />

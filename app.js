@@ -306,6 +306,10 @@ app.get('/admin/food', function (req, res) {
     res.render("admin/food.ejs", {menu: foodItems});
 });
 
+app.get('/admin/food/:id', function (req, res) {
+    res.render("admin/edit-food.ejs", {menu: foodItem});
+});
+
 app.get('/admin/tables', function (req, res) {
     res.render("admin/tables.ejs", {tables: tablesSample});
 });

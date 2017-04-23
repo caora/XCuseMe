@@ -84,7 +84,7 @@ var Menu = (function () {
 
     // $.ajax({
     //   type: "POST",
-    //   url: "http://"+IP_FABI+":8000/orderings/domains/1/locations/1/place",
+    //   url: "http://"+IP_Fabi+":8000/orderings/domains/1/locations/1/place",
     //   data: JSON.stringify(completeOrder),
     //   success: function(data){alert(data);},
     //   failure: function(errMsg) {

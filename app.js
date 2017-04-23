@@ -209,7 +209,7 @@ app.get('/admin/food', restrictAdmin, function (req, res) {
 
 app.get('/admin/tables/', restrictAdmin, function (req, res) {
     var renderParam = {r: 1, menu: {}};
-    var ordersUrl = "http://"+IP_FABI+":8000/orderings/domains/" + renderParam.r + "/orders/pollcat";
+    var ordersUrl = "http://"+IP_Dominik+":8000/orderings/domains/" + renderParam.r + "/orders/pollcat";
 
     request.get(ordersUrl, function (error, response, body) {
         if (!error && response.statusCode == 200) {
@@ -222,11 +222,13 @@ app.get('/admin/tables/', restrictAdmin, function (req, res) {
 });
 
 
-app.get('/admin/tables_request/', restrictAdmin, function (req, res) {
-    var ordersUrl = "http://"+IP_FABI+":8000/orderings/domains/1/orders/pollcat";
+app.get('/admin/tablerequest', function (req, res) {
+    var ordersUrl = "http://"+IP_Dominik+":8000/orderings/domains/1/orders/pollcat";
     request.get(ordersUrl, function (error, response, body) {
+      console.log(response.statusCode);
         if (!error && response.statusCode == 200) {
             var jsonObj = JSON.parse(response.body);
+            console.log(jsonObj);
             res.send(jsonObj);
         } else {
             res.redirect("/nope");
@@ -234,8 +236,8 @@ app.get('/admin/tables_request/', restrictAdmin, function (req, res) {
     });
 });
 
-app.post('/admin/confirm/:restaurant/:order', restrictAdmin, function(req, res) {
-    var url = "http://"+IP_FABI+":8000/orderings/domains/" + req.params.restaurant + "/orders/" + req.params.order + "/update";
+app.post('/admin/confirm/:restaurant/:order', function(req, res) {
+    var url = "http://"+IP_Dominik+":8000/orderings/domains/" + req.params.restaurant + "/orders/" + req.params.order + "/update";
 
     request.put({url: url, json: {'status': 'Doing'}}, function(err, response, body) {
 
@@ -244,8 +246,8 @@ app.post('/admin/confirm/:restaurant/:order', restrictAdmin, function(req, res) 
     res.redirect('/admin/tables');
 });
 
-app.post('/admin/done/:restaurant/:order', restrictAdmin, function(req, res) {
-    var url = "http://"+IP_FABI+":8000/orderings/domains/" + req.params.restaurant + "/orders/" + req.params.order + "/update";
+app.post('/admin/done/:restaurant/:order', function(req, res) {
+    var url = "http://"+IP_Dominik+":8000/orderings/domains/" + req.params.restaurant + "/orders/" + req.params.order + "/update";
 
     request.put({url: url, json: {'status': 'Done'}}, function(err, response, body) {
 
@@ -259,8 +261,7 @@ app.get('/admin/tableQrCodes/', restrictAdmin, function (req, res) {
 });
 
 app.post('/makeOrder', function(req, res) {
-  console.log("ordering");
-  request.post({url:"http://"+IP_FABI+":8000/orderings/domains/1/locations/1/place", json: req.body}, function(err,httpResponse,body){
+  request.post({url:"http://"+IP_Dominik+":8000/orderings/domains/1/locations/1/place", json: req.body}, function(err,httpResponse,body){
 
   });
 });

@@ -13,8 +13,9 @@
                         <div class="card-content">
                             <div id="table-qrcode-<%=t.tableNo%>"></div>
                             <script type="text/javascript">
+                                var IP_Fabi = "192.168.43.118";
                                 var qrcode = new QRCode(document.getElementById("table-qrcode-<%=t.tableNo%>"), {
-                                text: "172.16.119.108:3000/rv/1/<%=t.tableNo%>",
+                                    text: "http://"+IP_Fabi+":3000/rv/1/<%=t.tableNo%>",
                                 width: 128,
                                 height: 128,
                                 colorDark : "#000000",

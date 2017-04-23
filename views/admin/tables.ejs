@@ -10,12 +10,13 @@
 
     <script>
       var IP_Fabi = "192.168.43.118";
-        var ordersUrl = "http://"+IP_Fabi+":3000/admin/tables_request";
+        var ordersUrl = "http://"+IP_Fabi+":3000/admin/tablerequest";
         var updateTable = function() {
             $.ajax({
                 type: "GET",
                 url: ordersUrl,
                 success: function (data, status) {
+                  console.log(data);
                         var innerhtml = '<li class="collection-header"><p>Tischeübersicht</p></li>';
                         for (var sk in data) {
                             var tables = data[sk];
@@ -24,6 +25,8 @@
                                 innerhtml += '<li class="card" tableNo="' + tk + '">';
                                 innerhtml += 'Tisch ' + tk;
                                 if (t && t.length > 0) {
+                                  console.log(t);
+                                  console.log(tk);
                                     var priceSum = t.map(i => i.count * i["item"].price)
                                         .reduce((acc, val) => acc + val)
                                         .toFixed(2);
